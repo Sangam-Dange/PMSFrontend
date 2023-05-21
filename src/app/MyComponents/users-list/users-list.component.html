@@ -1,0 +1,14 @@
+<!-- <div *ngIf="userList">
+  {{ userList | json }}
+</div> -->
+
+<app-users-table
+  [userList]="userList"
+  (selectedUserId)="selectedUserId($event)"
+  [title]="title"
+></app-users-table>
+
+
+<button class="btn btn-primary" (click)="addUser()">Add User</button>
+<br />
+<button class="btn btn-primary" (click)="toggle()">toggle</button>

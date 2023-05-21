@@ -1,0 +1,77 @@
+<notifier-container></notifier-container>
+<div class="container custom-container">
+  <div class="text-center mb-2">
+    <img src="../assets/images/pharmacybg.png" alt="bg" class="main-bg-image" />
+  </div>
+  <h3>{{ title }}</h3>
+  <form style="user-select: auto" ngNativeValidate>
+    <fieldset style="user-select: auto">
+      <div class="form-group" style="user-select: auto">
+        <label
+          for="InputEmail"
+          class="form-label mt-4"
+          style="user-select: auto"
+          >Email address</label
+        >
+        <input
+          required
+          type="email"
+          class="form-control"
+          id="InputEmail"
+          aria-describedby="emailHelp"
+          placeholder="Enter email"
+          style="user-select: auto"
+          name="email"
+          [(ngModel)]="loginUser.email"
+        />
+        <small
+          id="emailHelp"
+          class="form-text text-muted"
+          style="user-select: auto"
+          >We'll never share your email with anyone else.</small
+        >
+      </div>
+      <div class="form-group" style="user-select: auto">
+        <label
+          for="InputPassword"
+          class="form-label mt-4"
+          style="user-select: auto"
+          >Password</label
+        >
+        <input
+          required
+          type="password"
+          class="form-control"
+          id="InputPassword"
+          placeholder="Password"
+          style="user-select: auto"
+          name="password"
+          [(ngModel)]="loginUser.password"
+        />
+      </div>
+      <div class="text-center mt-4">
+        <button
+          type="submit"
+          class="btn btn-success px-5 py-2"
+          style="user-select: auto"
+          (click)="handleLogin()"
+        >
+          Login
+        </button>
+      </div>
+      <div class="mt-3 w-100 d-flex justify-content-center align-iems-center">
+        <small class="text-muted d-inline" style="user-select: auto"
+          >Don't have an account?</small
+        >
+        <div class="mx-2">
+          <h5
+            [routerLink]="'/signup'"
+            style="user-select: auto d-inline; cursor: pointer"
+          >
+            Sign up
+          </h5>
+        </div>
+      </div>
+    </fieldset>
+  </form>
+</div>

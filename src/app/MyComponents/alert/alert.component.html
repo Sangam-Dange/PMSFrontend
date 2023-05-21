@@ -1,0 +1,18 @@
+<div
+  class="alert alert-dismissible alert-custom"
+  fade
+  style="user-select: auto"
+  [ngClass]="alertType"
+  [(visible)]="visible"
+  *ngIf="condition && visible"
+  [@fadeInUpOnEnter]
+>
+  <button
+    type="button"
+    class="btn-close"
+    data-bs-dismiss="alert"
+    style="user-select: auto"
+  ></button>
+
+  {{ message }}
+</div>

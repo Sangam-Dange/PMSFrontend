@@ -1,0 +1,30 @@
+.wrapper {
+  height: 100vh;
+  width: 100vw;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+.header {
+  width: 100vw;
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.container-custom {
+  padding: 0px 20px;
+}
+.icon-custom {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  height: 12px;
+  width: 12px;
+}
+
+.actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

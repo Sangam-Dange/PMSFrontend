@@ -1,0 +1,48 @@
+<h2>
+  {{ title }}
+</h2>
+<table class="table table-hover" style="user-select: auto">
+  <thead style="user-select: auto">
+    <tr style="user-select: auto">
+      <th scope="col" style="user-select: auto">Id</th>
+      <th scope="col" style="user-select: auto">Name</th>
+      <th scope="col" style="user-select: auto">Email</th>
+      <th scope="col" style="user-select: auto">Contact Number</th>
+      <th scope="col" style="user-select: auto">Requested For</th>
+      <th scope="col" style="user-select: auto">Role</th>
+      <th scope="col" style="user-select: auto">Authorize</th>
+    </tr>
+  </thead>
+  <tbody style="user-select: auto">
+    <tr
+      *ngFor="let user of userList"
+      class="table-active"
+      style="user-select: auto"
+      [ngClass]="user.isAdmin == undefined ? 'table-danger' : 'table-success'"
+    >
+      <td scope="row" style="user-select: auto">{{ user.id }}</td>
+      <td style="user-select: auto">{{ user.name }}</td>
+      <td style="user-select: auto">{{ user.email }}</td>
+      <td style="user-select: auto">{{ user.contact }}</td>
+      <td style="user-select: auto">{{ user.requestedFor }}</td>
+      <td style="user-select: auto">
+        {{
+          user.isAdmin == undefined
+            ? "Unauthorized"
+            : user.isAdmin == true
+            ? "Admin"
+            : "Doctor"
+        }}
+      </td>
+      <td style="user-select: auto">
+        <button class="btn btn-primary" (click)="authorizeUser(user?.id)">
+          {{
+            user.isAdmin == undefined
+              ? "Make " + user.requestedFor
+              : "Remove Authority"
+          }}
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>

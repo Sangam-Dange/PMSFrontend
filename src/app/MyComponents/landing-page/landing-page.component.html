@@ -1,0 +1,88 @@
+<div class="landing-container">
+  <img
+    src="assets/images/blob2.svg"
+    alt="blob1"
+    class="blob1"
+    *ngIf="condition"
+    [@enter]
+    [@fadeOutOnLeave]
+  />
+  <img
+    src="assets/images/blob.svg"
+    alt="blob2"
+    class="blob2"
+    *ngIf="condition"
+    [@fadeInOnEnter]
+    [@fadeOutOnLeave]
+  />
+  <div class="side-container" *ngIf="condition">
+    <img
+      src="assets/images/pharmacybg.png"
+      alt="pharmacy-logo"
+      class="pharmacy-logo"
+      [@enter]="{
+        value: '',
+        params: { duration: 1000, delay: 0, translate: '90px' }
+      }"
+    />
+
+    <h1
+      [@enter]="{
+        value: '',
+        params: { duration: 800, delay: 250, translate: '90px' }
+      }"
+    >
+      Welcome to
+    </h1>
+    <h4
+      [@enter]="{
+        value: '',
+        params: { duration: 800, delay: 400, translate: '90px' }
+      }"
+    >
+      Pharmacy Management System
+    </h4>
+    <h4
+      *ngIf="currentUser"
+      [@enter]="{
+        value: '',
+        params: { duration: 800, delay: 500, translate: '90px' }
+      }"
+    >
+      {{ currentUser.name }}
+    </h4>
+    <div
+      [@enter]="{
+        value: '',
+        params: { duration: 800, delay: 500, translate: '90px' }
+      }"
+      class="button-div"
+      *ngIf="currentUser == undefined"
+    >
+      <button
+        type="button"
+        class="btn btn-success btn-sm px-5"
+        style="user-select: auto; margin-right: 10px"
+        [routerLink]="'login'"
+      >
+        Login
+      </button>
+      <button
+        type="button"
+        class="btn btn-outline-info btn-sm px-5"
+        style="user-select: auto"
+        [routerLink]="'signup'"
+      >
+        Signup
+      </button>
+    </div>
+  </div>
+  <img
+    src="assets/images/landingBg.svg"
+    *ngIf="condition"
+    [@fadeInOnEnter]
+    [@fadeOutOnLeave]
+    alt="landing-Bg"
+    class="landingBg"
+  />
+</div>

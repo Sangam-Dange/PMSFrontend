@@ -1,0 +1,154 @@
+<notifier-container></notifier-container>
+<div class="container custom-container">
+  <div class="text-center mb-2">
+    <img src="../assets/images/pharmacybg.png" alt="bg" class="main-bg-image" />
+  </div>
+  <h3>{{ title }}</h3>
+  <form style="user-select: auto" ngNativeValidate>
+    <fieldset style="user-select: auto">
+      <div class="left">
+        <div class="form-group" style="user-select: auto">
+          <label for="name" class="form-label mt-4" style="user-select: auto"
+            >Full name</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            id="name"
+            placeholder="Enter your full name"
+            style="user-select: auto"
+            name="name"
+            [(ngModel)]="newUser.name"
+            required
+          />
+        </div>
+        <div class="form-group" style="user-select: auto">
+          <label
+            for="InputEmail"
+            class="form-label mt-4"
+            style="user-select: auto"
+            >Email address</label
+          >
+          <input
+            type="email"
+            class="form-control"
+            id="InputEmail"
+            aria-describedby="emailHelp"
+            placeholder="Enter email"
+            style="user-select: auto"
+            name="email"
+            [(ngModel)]="newUser.email"
+            required
+          />
+          <small
+            id="emailHelp"
+            class="form-text text-muted"
+            style="user-select: auto"
+            >We'll never share your email with anyone else.</small
+          >
+        </div>
+        <div class="form-group" style="user-select: auto">
+          <label for="contact" class="form-label mt-4" style="user-select: auto"
+            >Contact number</label
+          >
+          <input
+            type="tel"
+            class="form-control"
+            id="contact"
+            placeholder="Enter contact number"
+            style="user-select: auto"
+            name="contact"
+            [(ngModel)]="newUser.contact"
+            required
+          />
+        </div>
+      </div>
+      <div class="right">
+        <div class="form-group radio-div" style="user-select: auto">
+          <legend class="mt-4" style="user-select: auto">Register as:</legend>
+          <div class="radios">
+            <div class="form-check" style="user-select: auto">
+              <input
+                class="form-check-input"
+                type="radio"
+                name="optionsRadios"
+                id="optionsRadios1"
+                value="Doctor"
+                checked="true"
+                style="user-select: auto"
+                (change)="onRadioChange($event)"
+                required
+              />
+              <label
+                class="form-check-label"
+                for="optionsRadios1"
+                style="user-select: auto"
+              >
+                Doctor
+              </label>
+            </div>
+            <div class="form-check" style="user-select: auto">
+              <input
+                class="form-check-input"
+                type="radio"
+                name="optionsRadios"
+                id="optionsRadios2"
+                value="Admin"
+                style="user-select: auto"
+                (change)="onRadioChange($event)"
+                required
+              />
+              <label
+                class="form-check-label"
+                for="optionsRadios2"
+                style="user-select: auto"
+              >
+                Admin
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group" style="user-select: auto">
+          <label
+            for="InputPassword"
+            class="form-label mt-4"
+            style="user-select: auto"
+            >Password</label
+          >
+          <input
+            type="password"
+            class="form-control"
+            id="InputPassword"
+            placeholder="Password"
+            style="user-select: auto"
+            name="password"
+            [(ngModel)]="newUser.password"
+            required
+          />
+        </div>
+      </div>
+    </fieldset>
+    <div class="bottom">
+      <div class="text-center mt-4">
+        <button
+          type="submit"
+          class="btn btn-success px-5 py-2"
+          style="user-select: auto"
+          (click)="handleSignup()"
+        >
+          Signup
+        </button>
+      </div>
+      <div class="mt-3 w-100 d-flex justify-content-center align-iems-center">
+        <small class="text-muted d-inline" style="user-select: auto"
+          >Already have an account?</small
+        >
+        <div class="mx-2">
+         
+          <h5 [routerLink]="'/login'" style="user-select: auto d-inline;cursor: pointer;">login</h5>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

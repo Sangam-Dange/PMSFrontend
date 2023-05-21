@@ -1,0 +1,62 @@
+<app-alert [condition]="alertCondition" [message]="message"></app-alert>
+<div class="wrapper">
+  <div class="header">
+    <h2>
+      {{ title }}
+    </h2>
+    <button class="btn btn-primary btn-sm" [routerLink]="'/addsupplier'">
+      Add Supplier
+    </button>
+  </div>
+
+  <div class="container-custom">
+    <h4 *ngIf="supplierList.length == 0">No Supplier found....</h4>
+
+    <table
+      class="table table-hover"
+      style="user-select: auto"
+      *ngIf="supplierList.length > 0"
+    >
+      <thead style="user-select: auto">
+        <tr style="user-select: auto">
+          <th scope="col" style="user-select: auto">Id</th>
+          <th scope="col" style="user-select: auto">Name</th>
+          <th scope="col" style="user-select: auto">Email</th>
+          <th scope="col" style="user-select: auto">Contact Number</th>
+          <th scope="col" style="user-select: auto">Address</th>
+          <th scope="col" style="user-select: auto">Actions</th>
+        </tr>
+      </thead>
+      <tbody style="user-select: auto">
+        <tr
+          *ngFor="let sup of supplierList"
+          class="table-info"
+          style="user-select: auto"
+        >
+          <td scope="row" style="user-select: auto">{{ sup.id }}</td>
+          <td style="user-select: auto">{{ sup.supplier_name }}</td>
+          <td style="user-select: auto">{{ sup.supplier_email }}</td>
+          <td style="user-select: auto">{{ sup.supplier_phone }}</td>
+          <td style="user-select: auto">{{ sup.supplier_address }}</td>
+          <td style="user-select: auto">
+            <div class="actions">
+              <button
+                class="btn btn-outline-success btn-sm m-1"
+                [routerLink]="['/editsupplier/' + sup.id]"
+              >
+                <span class="material-icons-round icon-custom">edit</span>
+              </button>
+              <button
+                class="btn btn-outline-danger btn-sm m-1"
+                (click)="deleteSupplier(sup.id)"
+              >
+                <span class="material-icons-round icon-custom">delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<!-- [ngClass]="user.isAdmin == undefined ? 'table-danger' : 'table-success'" -->

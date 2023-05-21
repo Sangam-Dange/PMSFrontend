@@ -1,0 +1,45 @@
+.landing-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  position: relative;
+  .blob1{
+    height: 600px;
+    position: absolute;
+    bottom: -300px;
+    right: -150px;
+    z-index: -10;
+    
+  }
+  .blob2{
+    height: 800px;
+    position: absolute;
+    top: -160px;
+    left: -300px;
+    z-index: -10;
+    transform: rotateX(30deg);
+  }
+  h1 {
+    font-weight: bold;
+  }
+  h4 {
+    margin-bottom: 10px;
+  }
+  .side-container {
+    margin-right: 50px;
+  }
+  .pharmacy-logo {
+    height: 100px;
+    margin-bottom: 20px;
+  }
+  .button-div {
+    margin-top: 20px;
+  }
+  .landingBg {
+    height: 400px;
+    margin-bottom: 80px;
+  }
+}
