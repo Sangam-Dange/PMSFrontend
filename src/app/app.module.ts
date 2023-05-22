@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, isDevMode } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
@@ -17,7 +17,9 @@ import { FormsModule } from '@angular/forms';
 import { AlertComponent } from './MyComponents/alert/alert.component';
 import { NotifierModule, NotifierOptions } from 'angular-notifier';
 import { UsersService } from './services/users.service';
-import { StoreModule } from '@ngrx/store';
+import { HeaderComponent } from './MyComponents/header/header.component';
+import { DrugListComponent } from './MyComponents/drug-list/drug-list.component';
+import { DrugCardComponent } from './MyComponents/drug-list/drug-card/drug-card.component';
 
 const customNotifierOptions: NotifierOptions = {
   position: {
@@ -45,6 +47,10 @@ const customNotifierOptions: NotifierOptions = {
     SuppliersListComponent,
     AddSupplierComponent,
     AlertComponent,
+    HeaderComponent,
+
+    DrugListComponent,
+     DrugCardComponent,
   ],
   imports: [
     BrowserModule,
@@ -53,14 +59,13 @@ const customNotifierOptions: NotifierOptions = {
     HttpClientModule,
     FormsModule,
     NotifierModule.withConfig(customNotifierOptions),
-    StoreModule.forRoot({}, {}),
   ],
   providers: [
     {
       provide: APP_SERVICE_CONFIG,
       useValue: APP_CONFIG,
     },
-    UsersService
+    UsersService,
   ],
   bootstrap: [AppComponent],
 })

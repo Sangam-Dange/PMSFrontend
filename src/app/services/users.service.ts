@@ -6,6 +6,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { LoginUser } from '../MyComponents/login-page/LoginUser';
 import { RegisterUser } from '../MyComponents/signup-page/RegisterUser';
 import { LocalStorageToken } from '../localstorage.token';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -14,7 +15,14 @@ export class UsersService {
   userList: User[] = [];
 
   currentLoggedInUser!: User;
+  private approvalStageUser = new BehaviorSubject(this.currentLoggedInUser);
+  currentApprovalStageUser = this.approvalStageUser.asObservable();
+ 
+  changeUserValue(user: User) {
+    this.approvalStageUser.next(user);
+  }
 
+  
   constructor(
     @Inject(APP_SERVICE_CONFIG) private config: AppConfig,
     @Inject(LocalStorageToken) private localstorage: any,
@@ -28,10 +36,12 @@ export class UsersService {
       `Bearer ${this.localstorage.getItem('token')}`
     ),
   };
+
+
   getUserByToken() {
     return this.http.get<User>('/api/Auth/getUserByToken', this.header);
   }
- getUsers() {
+  getUsers() {
     return this.http.get<User[]>('/api/Users');
   }
   registerUser(newUser: RegisterUser) {

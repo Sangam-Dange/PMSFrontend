@@ -6,8 +6,10 @@ import { LandingPageComponent } from './MyComponents/landing-page/landing-page.c
 import { ErrorPageComponent } from './MyComponents/error-page/error-page.component';
 import { AddSupplierComponent } from './MyComponents/suppliers-list/add-supplier/add-supplier.component';
 import { SuppliersListComponent } from './MyComponents/suppliers-list/suppliers-list.component';
+import { DrugListComponent } from './MyComponents/drug-list/drug-list.component';
 
 const routes: Routes = [
+  { path: 'drugs', component:  DrugListComponent},
   { path: 'addsupplier', component: AddSupplierComponent },
   { path: 'editsupplier/:id', component: AddSupplierComponent },
   { path: 'suppliers', component: SuppliersListComponent },

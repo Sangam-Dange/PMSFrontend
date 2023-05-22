@@ -31,9 +31,8 @@ export class LandingPageComponent implements OnInit {
   constructor(private userServices: UsersService) {}
 
   ngOnInit() {
-    console.log(this.userServices.currentLoggedInUser)
-    if (this.userServices.currentLoggedInUser) {
-      this.currentUser = this.userServices.currentLoggedInUser;
-    }
+    this.userServices.currentApprovalStageUser.subscribe((user) => {
+      this.currentUser = user;
+    });
   }
 }

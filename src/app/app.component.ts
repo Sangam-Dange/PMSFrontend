@@ -1,6 +1,8 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { LocalStorageToken } from './localstorage.token';
 import { UsersService } from './services/users.service';
+import { Router } from '@angular/router';
+import { NotifierService } from 'angular-notifier';
+import { User } from './MyComponents/users-list/User';
 
 @Component({
   selector: 'app-root',
@@ -9,11 +11,26 @@ import { UsersService } from './services/users.service';
 })
 export class AppComponent implements OnInit {
   title = 'Pharmacy Management System';
-  constructor(private userServices: UsersService) {}
+  currentUser!: User;
+  private readonly notifier: NotifierService;
+
+  constructor(
+    private userServices: UsersService,
+    private router: Router,
+    notifierService: NotifierService
+  ) {
+    this.notifier = notifierService;
+  }
 
   ngOnInit() {
-    this.userServices.getUserByToken().subscribe((user) => {
-      this.userServices.currentLoggedInUser = user;
-    });
+    this.userServices.getUserByToken().subscribe(
+      (user) => {
+        this.currentUser = user;
+        this.userServices.changeUserValue(user);
+      },
+      (error) => {
+        this.router.navigate(['/login']);
+      }
+    );
   }
 }

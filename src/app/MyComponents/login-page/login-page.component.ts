@@ -15,9 +15,7 @@ export class LoginPageComponent {
   welcomeNote: string = 'welcome to app';
   value: boolean = false;
   visible: boolean = false;
-  alertCondition: boolean = false;
-  message!: string;
-  alertType!: string;
+
   private readonly notifier: NotifierService;
   loginUser: LoginUser = {
     email: '',
@@ -39,7 +37,7 @@ export class LoginPageComponent {
         (res) => {
           this.notifier.notify('success', 'Successfully Loged In');
           this.localstorage.setItem('token', res['token']);
-          this.userServices.currentLoggedInUser = res["payload"]
+          this.userServices.changeUserValue(res['payload']);
           setTimeout(() => this.router.navigate(['/']), 2000);
         },
         (error) => {
