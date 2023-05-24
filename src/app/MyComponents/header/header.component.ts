@@ -1,4 +1,6 @@
-import { Component, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Inject } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { LocalStorageToken } from 'src/app/localstorage.token';
 import { OrderService } from 'src/app/services/order.service';
 
 @Component({
@@ -6,15 +8,25 @@ import { OrderService } from 'src/app/services/order.service';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
 })
-export class HeaderComponent implements OnChanges {
+export class HeaderComponent {
   cartCount: Number;
-  constructor(private orderServices: OrderService) {}
+  number: any;
+  subscription: Subscription;
 
-  ngOnChanges(changes: SimpleChanges): void {
-    console.log(changes);
-    this.orderServices.currentDrugList.subscribe((val) => {
-      console.log(val)
+  constructor(
+    private orderServices: OrderService,
+    @Inject(LocalStorageToken) private localstorage: any
+  ) {
+    const CurrCartItems = JSON.parse(this.localstorage.getItem('CartItems'));
+    if (CurrCartItems) {
+      this.cartCount = CurrCartItems.length;
+    }
+    this.subscription = this.orderServices.getCartItem().subscribe((val) => {
       this.cartCount = val.length;
     });
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 }

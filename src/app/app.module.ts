@@ -20,6 +20,8 @@ import { UsersService } from './services/users.service';
 import { HeaderComponent } from './MyComponents/header/header.component';
 import { DrugListComponent } from './MyComponents/drug-list/drug-list.component';
 import { DrugCardComponent } from './MyComponents/drug-list/drug-card/drug-card.component';
+import { OrderService } from './services/order.service';
+import { DatePipe } from '@angular/common';
 
 const customNotifierOptions: NotifierOptions = {
   position: {
@@ -28,7 +30,7 @@ const customNotifierOptions: NotifierOptions = {
       distance: 12,
     },
     vertical: {
-      position: 'top',
+      position: 'bottom',
       distance: 12,
       gap: 10,
     },
@@ -48,7 +50,6 @@ const customNotifierOptions: NotifierOptions = {
     AddSupplierComponent,
     AlertComponent,
     HeaderComponent,
-
     DrugListComponent,
      DrugCardComponent,
   ],
@@ -66,6 +67,8 @@ const customNotifierOptions: NotifierOptions = {
       useValue: APP_CONFIG,
     },
     UsersService,
+    OrderService,
+    DatePipe
   ],
   bootstrap: [AppComponent],
 })

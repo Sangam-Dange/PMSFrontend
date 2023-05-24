@@ -35,10 +35,15 @@
           >
         </li>
         <li class="nav-item" style="user-select: auto">
-          <a class="nav-link" href="#" style="user-select: auto">Orders</a>
+          <a
+            class="nav-link"
+            [routerLink]="'/suppliers'"
+            style="user-select: auto"
+            >Suppliers</a
+          >
         </li>
         <li class="nav-item" style="user-select: auto">
-          <div class="cart-counter">
+          <div class="cart-counter" style="cursor: pointer">
             <span
               class="badge rounded-pill bg-success badge-custom"
               *ngIf="cartCount"

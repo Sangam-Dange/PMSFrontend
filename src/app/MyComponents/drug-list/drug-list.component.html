@@ -1,6 +1,8 @@
+<notifier-container></notifier-container>
 <div class="drug-list-container">
   <app-drug-card
-    [drugs]="drugs"
-    (selectedDrug)="handleAddToCart($event)"
+    *ngFor="let drug of drugs"
+    [drug]="drug"
+    (selectedCartItem)="handleAddToCart($event)"
   ></app-drug-card>
 </div>

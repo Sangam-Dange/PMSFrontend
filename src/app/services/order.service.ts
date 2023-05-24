@@ -1,23 +1,20 @@
 import { Injectable, OnInit } from '@angular/core';
 import { Drug } from '../MyComponents/drug-list/Drug';
-import { BehaviorSubject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
+import { CartItem } from '../MyComponents/drug-list/CartItem';
 
-@Injectable({
-  providedIn: 'root',
-})
-export class OrderService implements OnInit {
-  drug: Drug[] = [];
-  private approvalStageDrugs = new BehaviorSubject(this.drug);
-  currentDrugList = this.approvalStageDrugs.asObservable();
+@Injectable()
+export class OrderService {
+  private cartItemSubject = new Subject<any>();
 
-  changeDrugsListValue(drug: Drug[]) {
-    this.approvalStageDrugs.next(drug);
+  setCartItem(cartItems: CartItem[]) {
+    this.cartItemSubject.next(cartItems);
   }
-  constructor() {}
+  getCartItem(): Observable<CartItem[]> {
+    return this.cartItemSubject.asObservable();
+  }
 
-  ngOnInit() {
-    this.currentDrugList.subscribe((orderList) => {
-      console.log(orderList);
-    });
+  constructor() {
+    console.log('Order service created');
   }
 }

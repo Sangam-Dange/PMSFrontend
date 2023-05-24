@@ -1,4 +1,4 @@
-import { Injectable, Inject } from '@angular/core';
+import { Injectable, Inject, OnChanges, SimpleChanges } from '@angular/core';
 import { User } from '../MyComponents/users-list/User';
 import { APP_SERVICE_CONFIG } from '../AppConfig/appconfig.service';
 import { AppConfig } from '../AppConfig/appconfig.interface';
@@ -17,12 +17,11 @@ export class UsersService {
   currentLoggedInUser!: User;
   private approvalStageUser = new BehaviorSubject(this.currentLoggedInUser);
   currentApprovalStageUser = this.approvalStageUser.asObservable();
- 
+
   changeUserValue(user: User) {
     this.approvalStageUser.next(user);
   }
 
-  
   constructor(
     @Inject(APP_SERVICE_CONFIG) private config: AppConfig,
     @Inject(LocalStorageToken) private localstorage: any,
@@ -30,13 +29,13 @@ export class UsersService {
   ) {
     console.log('User Service created');
   }
+
   header = {
     headers: new HttpHeaders().set(
       'Authorization',
       `Bearer ${this.localstorage.getItem('token')}`
     ),
   };
-
 
   getUserByToken() {
     return this.http.get<User>('/api/Auth/getUserByToken', this.header);

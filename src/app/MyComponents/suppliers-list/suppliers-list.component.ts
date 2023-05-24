@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Supplier } from './Supplier';
 import { SuppliersService } from './services/suppliers.service';
+import { NotifierService } from 'angular-notifier';
 
 @Component({
   selector: 'app-suppliers-list',
@@ -10,24 +11,29 @@ import { SuppliersService } from './services/suppliers.service';
 export class SuppliersListComponent implements OnInit {
   title: string = 'Suppliers';
   supplierList: Supplier[] = [];
-  alertCondition: boolean = false;
-  message!: string;
-  constructor(private supplierServices: SuppliersService) {}
+
+  private readonly notifier: NotifierService;
+
+  constructor(
+    private supplierServices: SuppliersService,
+    notifierService: NotifierService
+  ) {
+    this.notifier = notifierService;
+  }
 
   ngOnInit(): void {
     this.getSupplier();
   }
+
   getSupplier() {
     this.supplierServices.getSuppliers().subscribe((supplier) => {
-      console.log(supplier);
       this.supplierList = supplier;
     });
   }
 
   deleteSupplier(id?: number) {
     this.supplierServices.removeSupplier(id).subscribe((response) => {
-      this.alertCondition = true;
-      this.message = 'Successfully Deleted Supplier';
+      this.notifier.notify('error', 'Successfully Deleted Supplier');
       this.supplierList = this.supplierList.filter((item) => item.id !== id);
     });
   }

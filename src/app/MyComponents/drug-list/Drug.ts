@@ -1,16 +1,16 @@
 export interface Drug {
-  drug_id: Number;
+  drug_id: number;
   drug_name: string;
-  price: Number;
+  price: number;
   batch_id: string;
-  quantity: Number;
+  quantity: number;
   expiry_date: Date;
   supplierDetail: {
-    id: Number;
+    id: number;
     supplier_name: string;
     supplier_email: string;
     supplier_address: string;
     supplier_phone: string;
   };
-  supplierDetailId: Number;
+  supplierDetailId: number;
 }

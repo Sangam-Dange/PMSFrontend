@@ -1,58 +1,67 @@
-import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import {
+  Component,
+  Inject,
+  OnChanges,
+  OnInit,
+  SimpleChanges,
+} from '@angular/core';
 import { Drug } from './Drug';
+import { CartItem } from './CartItem';
 import { DrugsService } from './services/drugs.service';
 import { OrderService } from 'src/app/services/order.service';
-import { tap } from 'rxjs';
+import { NotifierService } from 'angular-notifier';
+import { LocalStorageToken } from 'src/app/localstorage.token';
 
 @Component({
   selector: 'app-drug-list',
   templateUrl: './drug-list.component.html',
   styleUrls: ['./drug-list.component.scss'],
 })
-export class DrugListComponent implements OnInit, OnChanges {
+export class DrugListComponent implements OnInit {
   drugs: Drug[] = [];
-  currentCartItems: Drug[] = [];
+  currentCartItems: CartItem[] = [];
+  private readonly notifier: NotifierService;
   constructor(
     private drugsService: DrugsService,
-    private orderServices: OrderService
-  ) {}
-  ngOnChanges(changes: SimpleChanges): void {
-    console.log(this.currentCartItems);
-    throw new Error('Method not implemented.');
+    private orderServices: OrderService,
+    @Inject(LocalStorageToken) private localstorage: any,
+    notifierService: NotifierService
+  ) {
+    if (this.localstorage.getItem('CartItems')) {
+      this.currentCartItems = JSON.parse(localstorage.getItem('CartItems'));
+    }
+    this.notifier = notifierService;
   }
-
   ngOnInit() {
-    this.orderServices.currentDrugList.subscribe((orderList) => {
-      this.currentCartItems = orderList;
-    });
     this.drugsService.getAllDrugs().subscribe((drugs) => {
       this.drugs = drugs;
     });
   }
 
-  handleAddToCart(drug: Drug) {
-    this.currentCartItems.push(drug);
-    this.orderServices.changeDrugsListValue(this.currentCartItems);
-  }
+  handleAddToCart(cartItem: CartItem) {
+    const cartIndex = this.currentCartItems.findIndex(
+      (x) => x.drug_id === cartItem.drug_id
+    );
+    if (cartIndex === -1) {
+      this.notifier.notify(
+        'success',
+        `A quantity of ${cartItem.selectedQuantity} of the ${cartItem.drug_name} drug has been added to the cart`
+      );
+      this.currentCartItems.push(cartItem);
+    } else {
+      this.currentCartItems[cartIndex].selectedQuantity =
+        cartItem.selectedQuantity;
+      this.currentCartItems[cartIndex].subTotal = cartItem.subTotal;
+      this.notifier.notify(
+        'success',
+        `A quantity of ${cartItem.selectedQuantity} of the ${cartItem.drug_name} drug has been updated to the cart`
+      );
+    }
 
-  // addToCart() {
-  //   const newDrug: Drug = {
-  //     drug_id: 2,
-  //     drug_name: 'string',
-  //     price: 2,
-  //     batch_id: 'string',
-  //     quantity: 2,
-  //     expiry_date: new Date(),
-  //     supplierDetail: {
-  //       id: 2,
-  //       supplier_name: 'string',
-  //       supplier_email: 'string',
-  //       supplier_address: 'string',
-  //       supplier_phone: 'string',
-  //     },
-  //     supplierDetailId: 2,
-  //   };
-  //   this.currentCartItems.push(newDrug);
-  //   console.log(this.currentCartItems)
-  // }
+    this.localstorage.setItem(
+      'CartItems',
+      JSON.stringify(this.currentCartItems)
+    );
+    this.orderServices.setCartItem(this.currentCartItems);
+  }
 }

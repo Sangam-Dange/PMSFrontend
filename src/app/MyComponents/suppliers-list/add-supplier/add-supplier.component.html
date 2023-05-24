@@ -1,106 +1,111 @@
-<app-alert [condition]="alertCondition" [message] = "message"></app-alert>
-<div class="container custom-container">
-  <div class="text-center mb-2">
-    <img src="../assets/images/pharmacybg.png" alt="bg" class="main-bg-image" />
+<notifier-container></notifier-container>
+<div class="add-supplier-container">
+  <div class="container custom-container">
+    <div class="text-center mb-2">
+      <img
+        src="../assets/images/pharmacybg.png"
+        alt="bg"
+        class="main-bg-image"
+      />
+    </div>
+    <h3>{{ id == "" ? "Add" : "Edit" }} Supplier</h3>
+    <form
+      style="user-select: auto"
+      class="needs-validation"
+      #myForm="ngForm"
+      (ngSubmit)="supplierActions(myForm)"
+      ngNativeValidate
+    >
+      <fieldset>
+        <div class="form-group" style="user-select: auto">
+          <label for="Name" class="form-label mt-4" style="user-select: auto"
+            >Suppliers Full Name</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            id="Name"
+            aria-describedby="emailHelp"
+            placeholder="Enter suppliers name"
+            style="user-select: auto"
+            name="fullName"
+            [(ngModel)]="newSupplier.supplier_name"
+            required
+          />
+          <div class="valid-feedback">Looks good!</div>
+        </div>
+        <div class="form-group" style="user-select: auto">
+          <label
+            for="InputEmail"
+            class="form-label mt-4"
+            style="user-select: auto"
+            >Email address</label
+          >
+          <input
+            required
+            type="email"
+            class="form-control"
+            id="InputEmail"
+            aria-describedby="emailHelp"
+            placeholder="Enter email"
+            style="user-select: auto"
+            [(ngModel)]="newSupplier.supplier_email"
+            [ngModelOptions]="{ standalone: true }"
+          />
+          <small
+            id="emailHelp"
+            class="form-text text-muted"
+            style="user-select: auto"
+            >We'll never share your email with anyone else.</small
+          >
+        </div>
+        <div class="form-group" style="user-select: auto">
+          <label
+            for="InputAddress"
+            class="form-label mt-4"
+            style="user-select: auto"
+            >Address</label
+          >
+          <input
+            required
+            type="string"
+            class="form-control"
+            id="InputAddress"
+            placeholder="Enter suppliers address"
+            style="user-select: auto"
+            [(ngModel)]="newSupplier.supplier_address"
+            [ngModelOptions]="{ standalone: true }"
+          />
+        </div>
+        <div class="form-group" style="user-select: auto">
+          <label
+            for="InputContact"
+            class="form-label mt-4"
+            style="user-select: auto"
+            >Contact number</label
+          >
+          <input
+            required
+            type="tel"
+            class="form-control"
+            id="InputContact"
+            placeholder="Enter suppliers contact number"
+            style="user-select: auto"
+            [(ngModel)]="newSupplier.supplier_phone"
+            [ngModelOptions]="{ standalone: true }"
+          />
+        </div>
+        <div class="text-center mt-4">
+          <button
+            type="submit"
+            class="btn btn-success px-5 py-2"
+            style="user-select: auto"
+          >
+            {{ id == "" ? "Add" : "Edit" }}
+            Supplier
+          </button>
+        </div>
+      </fieldset>
+    </form>
   </div>
-  <h3>{{ id == "" ? "Add" : "Edit" }} Supplier</h3>
-  <form
-    style="user-select: auto"
-    class="needs-validation"
- 
-    #myForm="ngForm"
-    (ngSubmit)="supplierActions(myForm)"
-    ngNativeValidate
-  >
-    <fieldset>
-      <div class="form-group" style="user-select: auto">
-        <label for="Name" class="form-label mt-4" style="user-select: auto"
-          >Suppliers Full Name</label
-        >
-        <input
-          type="text"
-          class="form-control"
-          id="Name"
-          aria-describedby="emailHelp"
-          placeholder="Enter suppliers name"
-          style="user-select: auto"
-          name="fullName"
-          [(ngModel)]="newSupplier.supplier_name"
-          required
-        />
-        <div class="valid-feedback">Looks good!</div>
-      </div>
-      <div class="form-group" style="user-select: auto">
-        <label
-          for="InputEmail"
-          class="form-label mt-4"
-          style="user-select: auto"
-          >Email address</label
-        >
-        <input
-          required
-          type="email"
-          class="form-control"
-          id="InputEmail"
-          aria-describedby="emailHelp"
-          placeholder="Enter email"
-          style="user-select: auto"
-          [(ngModel)]="newSupplier.supplier_email"
-          [ngModelOptions]="{ standalone: true }"
-        />
-        <small
-          id="emailHelp"
-          class="form-text text-muted"
-          style="user-select: auto"
-          >We'll never share your email with anyone else.</small
-        >
-      </div>
-      <div class="form-group" style="user-select: auto">
-        <label
-          for="InputAddress"
-          class="form-label mt-4"
-          style="user-select: auto"
-          >Address</label
-        >
-        <input
-          required
-          type="string"
-          class="form-control"
-          id="InputAddress"
-          placeholder="Enter suppliers address"
-          style="user-select: auto"
-          [(ngModel)]="newSupplier.supplier_address"
-          [ngModelOptions]="{ standalone: true }"
-        />
-      </div>
-      <div class="form-group" style="user-select: auto">
-        <label
-          for="InputContact"
-          class="form-label mt-4"
-          style="user-select: auto"
-          >Contact number</label
-        >
-        <input
-          required
-          type="tel"
-          class="form-control"
-          id="InputContact"
-          placeholder="Enter suppliers contact number"
-          style="user-select: auto"
-          [(ngModel)]="newSupplier.supplier_phone"
-          [ngModelOptions]="{ standalone: true }"
-        />
-      </div>
-      <div class="text-center mt-4">
-        <button
-          type="submit"
-          class="btn btn-success px-5 py-2"
-          style="user-select: auto"
-        >
-          {{ id == "" ? "Add" : "Edit" }}
-          Supplier
-        </button>
-      </div>
-    </fieldset>
-  </form>
 </div>

@@ -17,6 +17,7 @@ export class LoginPageComponent {
   visible: boolean = false;
 
   private readonly notifier: NotifierService;
+
   loginUser: LoginUser = {
     email: '',
     password: '',
@@ -33,17 +34,17 @@ export class LoginPageComponent {
 
   handleLogin() {
     if (this.loginUser.email && this.loginUser.password) {
-      this.userServices.loginUser(this.loginUser).subscribe(
-        (res) => {
-          this.notifier.notify('success', 'Successfully Loged In');
+      this.userServices.loginUser(this.loginUser).subscribe({
+        next: (res) => {
+          this.notifier.notify('success', 'Successfully Logged In');
           this.localstorage.setItem('token', res['token']);
           this.userServices.changeUserValue(res['payload']);
           setTimeout(() => this.router.navigate(['/']), 2000);
         },
-        (error) => {
+        error: (error) => {
           this.notifier.notify('error', error.error);
-        }
-      );
+        },
+      });
     }
   }
 }
