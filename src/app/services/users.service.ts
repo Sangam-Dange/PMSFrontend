@@ -7,6 +7,7 @@ import { LoginUser } from '../MyComponents/login-page/LoginUser';
 import { RegisterUser } from '../MyComponents/signup-page/RegisterUser';
 import { LocalStorageToken } from '../localstorage.token';
 import { BehaviorSubject } from 'rxjs';
+import { AuthHeaderService } from './auth-header.service';
 
 @Injectable({
   providedIn: 'root',
@@ -14,20 +15,12 @@ import { BehaviorSubject } from 'rxjs';
 export class UsersService {
   userList: User[] = [];
 
-  currentLoggedInUser!: User;
-  private approvalStageUser = new BehaviorSubject(this.currentLoggedInUser);
-  currentApprovalStageUser = this.approvalStageUser.asObservable();
-
+  private currentLoggedInUser = new BehaviorSubject<User>(null);
   changeUserValue(user: User) {
-    this.approvalStageUser.next(user);
+    this.currentLoggedInUser.next(user);
   }
-
-  constructor(
-    @Inject(APP_SERVICE_CONFIG) private config: AppConfig,
-    @Inject(LocalStorageToken) private localstorage: any,
-    private http: HttpClient
-  ) {
-    console.log('User Service created');
+  getUserValue() {
+    return this.currentLoggedInUser.asObservable();
   }
 
   header = {
@@ -36,6 +29,16 @@ export class UsersService {
       `Bearer ${this.localstorage.getItem('token')}`
     ),
   };
+
+  constructor(
+    @Inject(APP_SERVICE_CONFIG) private config: AppConfig,
+    @Inject(LocalStorageToken) private localstorage: any,
+    private authHeaderService: AuthHeaderService,
+    private http: HttpClient
+  ) {
+    console.log('User Service created');
+    console.log(this.authHeaderService.getHeaderValue());
+  }
 
   getUserByToken() {
     return this.http.get<User>('/api/Auth/getUserByToken', this.header);
@@ -49,4 +52,5 @@ export class UsersService {
   loginUser(user: LoginUser) {
     return this.http.post('/api/Auth/login', user);
   }
+
 }

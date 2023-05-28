@@ -1,0 +1,36 @@
+<div class="wrapper">
+  <h2>Order Checkout</h2>
+  <table class="table table-hover" style="user-select: auto">
+    <thead style="user-select: auto">
+      <tr style="user-select: auto">
+        <th scope="col" style="user-select: auto">Id</th>
+        <th scope="col" style="user-select: auto">Name</th>
+        <th scope="col" style="user-select: auto">Price</th>
+
+        <th scope="col" style="user-select: auto">Quantity</th>
+        <th scope="col" style="user-select: auto">SubTotal</th>
+        <th scope="col" style="user-select: auto">Action</th>
+      </tr>
+    </thead>
+    <tbody style="user-select: auto">
+      <tr
+        *ngFor="let item of cartItems"
+        class="table-success"
+        style="user-select: auto"
+      >
+        <td scope="row" style="user-select: auto">{{ item.drug_id }}</td>
+        <td style="user-select: auto">{{ item.drug_name }}</td>
+        <td style="user-select: auto">{{ item.price }}</td>
+        <td style="user-select: auto">{{ item.selectedQuantity }}</td>
+        <td style="user-select: auto">
+          {{ "Rs." + item.subTotal }}
+        </td>
+        <td style="user-select: auto">
+          <button class="btn btn-primary btn-sm"
+          (click)="removeDrug(item)"
+          >Remove Drug</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

@@ -7,10 +7,11 @@ import {
   Output,
 } from '@angular/core';
 import { Drug } from '../Drug';
-import { Subject } from 'rxjs';
 import { DatePipe } from '@angular/common';
 import { CartItem } from '../CartItem';
 import { LocalStorageToken } from 'src/app/localstorage.token';
+import { User } from '../../users-list/User';
+
 @Component({
   selector: 'app-drug-card',
   templateUrl: './drug-card.component.html',
@@ -19,18 +20,10 @@ import { LocalStorageToken } from 'src/app/localstorage.token';
 })
 export class DrugCardComponent implements OnInit {
   @Input() drug: Drug;
-  formattedDate: string;
   selectedQuantity: number = 1;
-  constructor(
-    private datePipe: DatePipe,
-    @Inject(LocalStorageToken) private localstorage: any
-  ) {}
+  @Input() currentUser!: User;
+  constructor(@Inject(LocalStorageToken) private localstorage: any) {}
   ngOnInit() {
-    this.formattedDate = this.datePipe.transform(
-      this.drug.expiry_date,
-      'yyyy/MM/dd'
-    );
-
     const CurrCartItems = JSON.parse(this.localstorage.getItem('CartItems'));
     if (CurrCartItems) {
       const currIndexOfItem = CurrCartItems.findIndex(
@@ -42,7 +35,8 @@ export class DrugCardComponent implements OnInit {
       }
     }
   }
-  @Output() selectedCartItem = new EventEmitter<CartItem>();
+
+  @Output() selectedCartItemEvent = new EventEmitter<CartItem>();
   addToCartDrug(selectedDrug: Drug) {
     const cartItem: CartItem = {
       drug_id: selectedDrug.drug_id,
@@ -53,7 +47,12 @@ export class DrugCardComponent implements OnInit {
       subTotal: selectedDrug.price * this.selectedQuantity,
       supplierDetailId: selectedDrug.supplierDetailId,
     };
-    this.selectedCartItem.emit(cartItem);
+    this.selectedCartItemEvent.emit(cartItem);
+  }
+
+  @Output() deleteDrugEvent = new EventEmitter<number>();
+  deleteDrug(drugId: number) {
+    this.deleteDrugEvent.emit(drugId);
   }
 
   incQuantity() {

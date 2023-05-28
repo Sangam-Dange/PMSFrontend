@@ -8,20 +8,30 @@
     <div class="top-bottom">
       <div>
         <p>Quantity</p>
-        <h5>{{ drug.quantity - this.selectedQuantity }}</h5>
+        <h5>
+          {{
+            currentUser?.isAdmin
+              ? drug.quantity
+              : drug.quantity - this.selectedQuantity
+          }}
+        </h5>
       </div>
       <div>
         <p>Exp Date</p>
-        <h5>{{ formattedDate }}</h5>
+        <h5>{{ drug.expiry_date | date : "dd/MM/yyyy" }}</h5>
       </div>
     </div>
+  </div>
+  <div *ngIf="currentUser?.isAdmin">
+    <p>Supplier name</p>
+    <h5>{{ drug.supplierDetail.supplier_name }}</h5>
   </div>
   <div class="bottom">
     <div>
       <p>Price</p>
       <h5>{{ drug.price }}</h5>
     </div>
-    <form ngNativeValidate>
+    <form ngNativeValidate *ngIf="!currentUser?.isAdmin">
       <div class="quantity-div">
         <button class="btn-custom" (click)="decrQuantity()">-</button>
         <input
@@ -42,6 +52,19 @@
         <span class="material-icons-round">add_shopping_cart</span>
       </button>
     </form>
-    
+    <div class="action-btn-div" *ngIf="currentUser?.isAdmin">
+      <button
+        class="btn btn-outline-success btn-sm m-1"
+        [routerLink]="['/editdrug/' + drug.drug_id]"
+      >
+        <span class="material-icons-round icon-custom">edit</span>
+      </button>
+      <button
+        class="btn btn-outline-danger btn-sm m-1"
+        (click)="deleteDrug(drug.drug_id)"
+      >
+        <span class="material-icons-round icon-custom">delete</span>
+      </button>
+    </div>
   </div>
 </div>

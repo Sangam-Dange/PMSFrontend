@@ -22,6 +22,9 @@ import { DrugListComponent } from './MyComponents/drug-list/drug-list.component'
 import { DrugCardComponent } from './MyComponents/drug-list/drug-card/drug-card.component';
 import { OrderService } from './services/order.service';
 import { DatePipe } from '@angular/common';
+import { CheckoutPageComponent } from './MyComponents/checkout-page/checkout-page.component';
+import { DrugActionsComponent } from './MyComponents/drug-list/drug-actions/drug-actions.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 const customNotifierOptions: NotifierOptions = {
   position: {
@@ -51,7 +54,9 @@ const customNotifierOptions: NotifierOptions = {
     AlertComponent,
     HeaderComponent,
     DrugListComponent,
-     DrugCardComponent,
+    DrugCardComponent,
+    CheckoutPageComponent,
+    DrugActionsComponent,
   ],
   imports: [
     BrowserModule,
@@ -60,15 +65,16 @@ const customNotifierOptions: NotifierOptions = {
     HttpClientModule,
     FormsModule,
     NotifierModule.withConfig(customNotifierOptions),
+    NgbModule,
+
   ],
   providers: [
     {
       provide: APP_SERVICE_CONFIG,
       useValue: APP_CONFIG,
     },
-    UsersService,
     OrderService,
-    DatePipe
+    DatePipe,
   ],
   bootstrap: [AppComponent],
 })

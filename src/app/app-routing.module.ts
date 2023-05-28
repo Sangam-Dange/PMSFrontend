@@ -7,9 +7,14 @@ import { ErrorPageComponent } from './MyComponents/error-page/error-page.compone
 import { AddSupplierComponent } from './MyComponents/suppliers-list/add-supplier/add-supplier.component';
 import { SuppliersListComponent } from './MyComponents/suppliers-list/suppliers-list.component';
 import { DrugListComponent } from './MyComponents/drug-list/drug-list.component';
+import { CheckoutPageComponent } from './MyComponents/checkout-page/checkout-page.component';
+import { DrugActionsComponent } from './MyComponents/drug-list/drug-actions/drug-actions.component';
 
 const routes: Routes = [
-  { path: 'drugs', component:  DrugListComponent},
+  { path: 'checkout', component: CheckoutPageComponent },
+  { path: 'editdrug/:id', component: DrugActionsComponent },
+  { path: 'adddrug', component: DrugActionsComponent },
+  { path: 'drugs', component: DrugListComponent },
   { path: 'addsupplier', component: AddSupplierComponent },
   { path: 'editsupplier/:id', component: AddSupplierComponent },
   { path: 'suppliers', component: SuppliersListComponent },

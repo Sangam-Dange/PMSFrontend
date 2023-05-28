@@ -34,7 +34,11 @@
             >Drugs</a
           >
         </li>
-        <li class="nav-item" style="user-select: auto">
+        <li
+          class="nav-item"
+          style="user-select: auto"
+          *ngIf="currentUser.isAdmin"
+        >
           <a
             class="nav-link"
             [routerLink]="'/suppliers'"
@@ -42,8 +46,16 @@
             >Suppliers</a
           >
         </li>
-        <li class="nav-item" style="user-select: auto">
-          <div class="cart-counter" style="cursor: pointer">
+        <li
+          class="nav-item"
+          style="user-select: auto"
+          *ngIf="!currentUser.isAdmin"
+        >
+          <div
+            class="cart-counter"
+            style="cursor: pointer"
+            [routerLink]="'/checkout'"
+          >
             <span
               class="badge rounded-pill bg-success badge-custom"
               *ngIf="cartCount"
@@ -52,7 +64,22 @@
             >
             <span class="material-icons-round">shopping_cart</span>
           </div>
-          <a class="nav-link" href="#" style="user-select: auto">Cart</a>
+          <a
+            class="nav-link"
+            style="user-select: auto"
+            [routerLink]="'/checkout'"
+            >Cart</a
+          >
+        </li>
+        <li>
+          <button
+            class="btn btn-primary btn-sm logout-btn"
+            [routerLink]="'/login'"
+            *ngIf="currentUser"
+            (click)="handleLogout()"
+          >
+            Logout
+          </button>
         </li>
       </ul>
     </div>

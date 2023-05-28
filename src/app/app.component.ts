@@ -20,7 +20,7 @@ export class AppComponent implements OnInit {
     notifierService: NotifierService
   ) {
     this.notifier = notifierService;
-    this.userServices.currentApprovalStageUser.subscribe({
+    this.userServices.getUserValue().subscribe({
       next: (val) => {
         this.currentUser = val;
       },
@@ -28,13 +28,14 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.userServices.getUserByToken().subscribe(
-      (user) => {
+    this.userServices.getUserByToken().subscribe({
+      next: (user) => {
         this.userServices.changeUserValue(user);
       },
-      (error) => {
+      error: (error) => {
         this.router.navigate(['/login']);
-      }
-    );
+        this.notifier.notify('error', error.error);
+      },
+    });
   }
 }

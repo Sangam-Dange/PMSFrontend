@@ -4,7 +4,10 @@
   right: 0;
   z-index: 100;
   border: none;
-
+   ul{
+    display: flex;
+    align-items: center;
+   }
   .header-div {
     font-size: 15px;
     .nav-item {
@@ -20,6 +23,14 @@
         right:-6px;
         top:-6px
       }
+    }
+    .logout-btn{
+      margin-right: 10px;
+      margin-left: -15px;
+      height: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
   }
 }

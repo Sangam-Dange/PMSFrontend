@@ -31,7 +31,7 @@ export class LandingPageComponent implements OnInit {
   constructor(private userServices: UsersService) {}
 
   ngOnInit() {
-    this.userServices.currentApprovalStageUser.subscribe((user) => {
+    this.userServices.getUserValue().subscribe((user) => {
       this.currentUser = user;
     });
   }

@@ -4,7 +4,9 @@
     <h2>
       {{ title }}
     </h2>
-    <button class="btn btn-primary btn-sm" [routerLink]="'/addsupplier'">
+    <button class="btn btn-primary btn-sm" [routerLink]="'/addsupplier'"
+    *ngIf="currentUser?.isAdmin"
+    >
       Add Supplier
     </button>
   </div>

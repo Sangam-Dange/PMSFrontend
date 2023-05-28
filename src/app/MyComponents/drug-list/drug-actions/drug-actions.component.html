@@ -1,0 +1,162 @@
+<notifier-container></notifier-container>
+<div class="add-drug-container">
+  <div class="container custom-container">
+    <div class="text-center mb-2">
+      <img
+        src="../assets/images/pharmacybg.png"
+        alt="bg"
+        class="main-bg-image"
+      />
+    </div>
+    <h3>{{ id == "" ? "Add" : "Edit" }} Drug</h3>
+    <form
+      style="user-select: auto"
+      class="needs-validation"
+      #myForm="ngForm"
+      (ngSubmit)="drugActions()"
+      ngNativeValidate
+    >
+      <fieldset class="custom-feildset">
+        <div class="drug-top">
+          <div class="drug-left">
+            <div class="form-group" style="user-select: auto">
+              <label
+                for="drugName"
+                class="form-label mt-4"
+                style="user-select: auto"
+                >Drug Name</label
+              >
+              <input
+                type="text"
+                class="form-control"
+                id="drugName"
+                aria-describedby="emailHelp"
+                placeholder="Drug full name"
+                style="user-select: auto"
+                name="drugName"
+                [(ngModel)]="newDrug.drug_name"
+                required
+              />
+              <div class="valid-feedback">Looks good!</div>
+            </div>
+            <div class="form-group" style="user-select: auto">
+              <label
+                for="price"
+                class="form-label mt-4"
+                style="user-select: auto"
+                >Drug Price</label
+              >
+              <input
+                required
+                type="number"
+                class="form-control"
+                id="price"
+                aria-describedby="emailHelp"
+                placeholder="Enter drug price"
+                style="user-select: auto"
+                [(ngModel)]="newDrug.price"
+                [ngModelOptions]="{ standalone: true }"
+                min="0"
+              />
+              <!-- <small
+                id="emailHelp"
+                class="form-text text-muted"
+                style="user-select: auto"
+                >We'll never share your email with anyone else.</small
+              > -->
+            </div>
+            <div class="form-group" style="user-select: auto">
+              <label
+                for="batchId"
+                class="form-label mt-4"
+                style="user-select: auto"
+                >Batch Id
+              </label>
+              <input
+                required
+                type="string"
+                class="form-control"
+                id="batchId"
+                placeholder="Enter batch id of drug"
+                style="user-select: auto"
+                [(ngModel)]="newDrug.batch_id"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+            <div class="form-group" style="user-select: auto">
+              <label
+                for="quantity"
+                class="form-label mt-4"
+                style="user-select: auto"
+                >Drug Quantity</label
+              >
+              <input
+                required
+                type="number"
+                class="form-control"
+                id="quantity"
+                placeholder="Enter quantity of drug"
+                style="user-select: auto"
+                [(ngModel)]="newDrug.quantity"
+                [ngModelOptions]="{ standalone: true }"
+                min="0"
+              />
+            </div>
+          </div>
+          <div class="drug-right">
+            <div class="form-group" style="user-select: auto">
+              <label
+                for="expiryDate"
+                class="form-label mt-4"
+                style="user-select: auto"
+                >Drug Expiry Date</label
+              >
+
+              <input
+                required
+                type="datetime-local"
+                class="form-control cutom-datepicker"
+                id="expiryDate"
+                placeholder="Enter expiry Date"
+                style="user-select: auto"
+                [(ngModel)]="newDrug.expiry_date"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="supplierList" class="form-label mt-4"
+                >Select Supplier</label
+              >
+              <select
+                class="form-select"
+                id="supplierList"
+                [(ngModel)]="newDrug.supplierDetailId"
+                [ngModelOptions]="{ standalone: true }"
+              >
+                >
+                <option
+                  [value]="supplier.id"
+                  *ngFor="let supplier of supplierList"
+                >
+                  {{ supplier.supplier_name }}
+                </option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="text-center mt-4">
+          <button
+            type="submit"
+            class="btn btn-success px-5 py-2"
+            style="user-select: auto"
+          >
+            {{ id == "" ? "Add" : "Edit" }}
+            Drug
+          </button>
+        </div>
+      </fieldset>
+    </form>
+  </div>
+</div>

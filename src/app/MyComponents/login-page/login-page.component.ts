@@ -39,7 +39,7 @@ export class LoginPageComponent {
           this.notifier.notify('success', 'Successfully Logged In');
           this.localstorage.setItem('token', res['token']);
           this.userServices.changeUserValue(res['payload']);
-          setTimeout(() => this.router.navigate(['/']), 2000);
+          this.router.navigate(['/']);
         },
         error: (error) => {
           this.notifier.notify('error', error.error);

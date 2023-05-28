@@ -11,6 +11,8 @@ import { DrugsService } from './services/drugs.service';
 import { OrderService } from 'src/app/services/order.service';
 import { NotifierService } from 'angular-notifier';
 import { LocalStorageToken } from 'src/app/localstorage.token';
+import { User } from '../users-list/User';
+import { UsersService } from 'src/app/services/users.service';
 
 @Component({
   selector: 'app-drug-list',
@@ -20,10 +22,12 @@ import { LocalStorageToken } from 'src/app/localstorage.token';
 export class DrugListComponent implements OnInit {
   drugs: Drug[] = [];
   currentCartItems: CartItem[] = [];
+  currentUser!: User;
   private readonly notifier: NotifierService;
   constructor(
     private drugsService: DrugsService,
     private orderServices: OrderService,
+    private userServices: UsersService,
     @Inject(LocalStorageToken) private localstorage: any,
     notifierService: NotifierService
   ) {
@@ -31,6 +35,9 @@ export class DrugListComponent implements OnInit {
       this.currentCartItems = JSON.parse(localstorage.getItem('CartItems'));
     }
     this.notifier = notifierService;
+    this.userServices.getUserValue().subscribe((user) => {
+      this.currentUser = user;
+    });
   }
   ngOnInit() {
     this.drugsService.getAllDrugs().subscribe((drugs) => {
@@ -63,5 +70,10 @@ export class DrugListComponent implements OnInit {
       JSON.stringify(this.currentCartItems)
     );
     this.orderServices.setCartItem(this.currentCartItems);
+  }
+
+  deleteDrug(drugId: number) {
+    this.drugsService.deleteDrug(drugId).subscribe((val) => console.log(val));
+    this.drugs = this.drugs.filter((x) => x.drug_id !== drugId);
   }
 }

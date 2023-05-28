@@ -1,8 +1,23 @@
 <notifier-container></notifier-container>
-<div class="drug-list-container">
-  <app-drug-card
-    *ngFor="let drug of drugs"
-    [drug]="drug"
-    (selectedCartItem)="handleAddToCart($event)"
-  ></app-drug-card>
+<div class="wrapper">
+  <div class="header">
+    <h2>Drugs</h2>
+    <button
+      class="btn btn-primary btn-sm"
+      [routerLink]="'/adddrug'"
+      *ngIf="currentUser?.isAdmin"
+    >
+      Add Drug
+    </button>
+  </div>
+
+  <div class="drug-list-container">
+    <app-drug-card
+      *ngFor="let drug of drugs"
+      [drug]="drug"
+      (selectedCartItemEvent)="handleAddToCart($event)"
+      (deleteDrugEvent)="deleteDrug($event)"
+      [currentUser]="currentUser"
+    ></app-drug-card>
+  </div>
 </div>

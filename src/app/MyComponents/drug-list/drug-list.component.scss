@@ -1,7 +1,21 @@
-.drug-list-container {
-  display: flex;
-  flex-direction: row;
+.wrapper {
+  height: 100vh;
   width: 100vw;
-  flex-wrap: wrap;
-  padding-top:100px
+  overflow-x: hidden;
+  overflow-y: auto;
+  padding: 20px;
+  .header {
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .drug-list-container {
+    display: flex;
+    flex-direction: row;
+    width: 100vw;
+    flex-wrap: wrap;
+    margin-top: 50px;
+  }
+ 
 }

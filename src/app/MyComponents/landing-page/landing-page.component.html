@@ -49,7 +49,11 @@
         params: { duration: 800, delay: 500, translate: '90px' }
       }"
     >
-      {{ currentUser.name }}
+      {{
+        currentUser?.isAdmin
+          ? "Admin " + currentUser.name
+          : "Dr. " + currentUser.name
+      }}
     </h4>
     <div
       [@enter]="{
@@ -57,7 +61,7 @@
         params: { duration: 800, delay: 500, translate: '90px' }
       }"
       class="button-div"
-      *ngIf="currentUser == undefined"
+      *ngIf="currentUser === undefined"
     >
       <button
         type="button"
