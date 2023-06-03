@@ -10,10 +10,7 @@ import { shareReplay } from 'rxjs';
 })
 export class DrugsService {
   drugs: Drug[] = [];
-  constructor(
-    private http: HttpClient,
-    private headerService: AuthHeaderService
-  ) {}
+  constructor(private http: HttpClient) {}
 
   getAllDrugs() {
     return this.http.get<Drug[]>('/api/Drugs').pipe(shareReplay(1));
@@ -29,9 +26,6 @@ export class DrugsService {
   }
 
   deleteDrug(drugId: number) {
-    return this.http.delete(
-      `/api/Drugs/${drugId}`,
-      this.headerService.getHeaderValue()
-    );
+    return this.http.delete(`/api/Drugs/${drugId}`);
   }
 }

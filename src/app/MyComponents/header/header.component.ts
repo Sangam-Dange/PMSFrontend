@@ -26,7 +26,7 @@ export class HeaderComponent {
       this.cartCount = CurrCartItems.length;
     }
     this.subscription = this.orderServices.getCartItem().subscribe((val) => {
-      this.cartCount = val.length;
+      this.cartCount = val?.length;
     });
     this.userServices.getUserValue().subscribe((val) => {
       this.currentUser = val;

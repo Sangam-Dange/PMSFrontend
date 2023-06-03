@@ -13,23 +13,29 @@ import { NotifierService } from 'angular-notifier';
 import { LocalStorageToken } from 'src/app/localstorage.token';
 import { User } from '../users-list/User';
 import { UsersService } from 'src/app/services/users.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-drug-list',
   templateUrl: './drug-list.component.html',
   styleUrls: ['./drug-list.component.scss'],
 })
-export class DrugListComponent implements OnInit {
+export class DrugListComponent implements OnInit, OnChanges {
   drugs: Drug[] = [];
+  constDrugs: Drug[] = [];
   currentCartItems: CartItem[] = [];
+  tempDrugs: Drug[];
   currentUser!: User;
+  searchKeyword!: string;
   private readonly notifier: NotifierService;
+
   constructor(
     private drugsService: DrugsService,
     private orderServices: OrderService,
     private userServices: UsersService,
     @Inject(LocalStorageToken) private localstorage: any,
-    notifierService: NotifierService
+    notifierService: NotifierService,
+    private activeRoute: ActivatedRoute
   ) {
     if (this.localstorage.getItem('CartItems')) {
       this.currentCartItems = JSON.parse(localstorage.getItem('CartItems'));
@@ -39,16 +45,27 @@ export class DrugListComponent implements OnInit {
       this.currentUser = user;
     });
   }
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log(changes);
+  }
+
   ngOnInit() {
     this.drugsService.getAllDrugs().subscribe((drugs) => {
       this.drugs = drugs;
+      this.constDrugs = drugs;
     });
+    if (this.activeRoute.snapshot.queryParamMap.get('search')) {
+      this.searchKeyword =
+        this.activeRoute.snapshot.queryParamMap.get('search');
+      this.searchDrug();
+    }
   }
 
   handleAddToCart(cartItem: CartItem) {
     const cartIndex = this.currentCartItems.findIndex(
       (x) => x.drug_id === cartItem.drug_id
     );
+
     if (cartIndex === -1) {
       this.notifier.notify(
         'success',
@@ -70,6 +87,21 @@ export class DrugListComponent implements OnInit {
       JSON.stringify(this.currentCartItems)
     );
     this.orderServices.setCartItem(this.currentCartItems);
+  }
+
+  searchDrug() {
+    this.tempDrugs = this.constDrugs;
+
+    if (this.searchKeyword) {
+      this.drugs = this.tempDrugs.filter(
+        (x) =>
+          x.drug_name
+            .toLowerCase()
+            .includes(this.searchKeyword.toLowerCase()) == true
+      );
+    }
+
+    this.tempDrugs = this.constDrugs;
   }
 
   deleteDrug(drugId: number) {

@@ -22,7 +22,9 @@
       </div>
     </div>
   </div>
-  <div *ngIf="currentUser?.isAdmin">
+  <div *ngIf="currentUser?.isAdmin"
+   class="supplier_div"
+  >
     <p>Supplier name</p>
     <h5>{{ drug.supplierDetail.supplier_name }}</h5>
   </div>

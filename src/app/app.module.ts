@@ -1,6 +1,6 @@
 import { NgModule, isDevMode } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginPageComponent } from './MyComponents/login-page/login-page.component';
@@ -25,6 +25,10 @@ import { DatePipe } from '@angular/common';
 import { CheckoutPageComponent } from './MyComponents/checkout-page/checkout-page.component';
 import { DrugActionsComponent } from './MyComponents/drug-list/drug-actions/drug-actions.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { OrderConfirmedPageComponent } from './MyComponents/order-confirmed-page/order-confirmed-page.component';
+import { OrderListComponent } from './MyComponents/order-list/order-list.component';
+import { OrderDetailsComponent } from './MyComponents/order-list/order-details/order-details.component';
+import { TokenInterceptor } from './services/token-interceptor';
 
 const customNotifierOptions: NotifierOptions = {
   position: {
@@ -57,6 +61,9 @@ const customNotifierOptions: NotifierOptions = {
     DrugCardComponent,
     CheckoutPageComponent,
     DrugActionsComponent,
+    OrderConfirmedPageComponent,
+    OrderListComponent,
+    OrderDetailsComponent,
   ],
   imports: [
     BrowserModule,
@@ -66,13 +73,13 @@ const customNotifierOptions: NotifierOptions = {
     FormsModule,
     NotifierModule.withConfig(customNotifierOptions),
     NgbModule,
-
   ],
   providers: [
     {
       provide: APP_SERVICE_CONFIG,
       useValue: APP_CONFIG,
     },
+    { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
     OrderService,
     DatePipe,
   ],

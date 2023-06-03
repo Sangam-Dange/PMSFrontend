@@ -1,7 +1,53 @@
-.wrapper{
-    height: 100vh;
-    width: 100vw;
-    overflow-x: hidden;
+@import "../../../styles.scss";
+.wrapper {
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  padding: 20px;
+  .table-container {
     overflow-y: scroll;
-    padding:20px;
+    height: 80vh;
   }
+  .bottom {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+    .total {
+      background-color: $t-color;
+      padding: 10px 20px;
+      border-radius: 5px;
+      color: white;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      span {
+        font-size: 22px;
+        text-align: center;
+        font-weight: bold;
+        margin-left: 3px;
+      }
+    }
+  }
+}
+
+.wrapper2 {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .emptyBg {
+    height: 250px;
+  }
+
+  div {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+  }
+}

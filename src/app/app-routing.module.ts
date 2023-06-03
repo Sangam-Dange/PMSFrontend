@@ -9,8 +9,14 @@ import { SuppliersListComponent } from './MyComponents/suppliers-list/suppliers-
 import { DrugListComponent } from './MyComponents/drug-list/drug-list.component';
 import { CheckoutPageComponent } from './MyComponents/checkout-page/checkout-page.component';
 import { DrugActionsComponent } from './MyComponents/drug-list/drug-actions/drug-actions.component';
+import { OrderConfirmedPageComponent } from './MyComponents/order-confirmed-page/order-confirmed-page.component';
+import { OrderListComponent } from './MyComponents/order-list/order-list.component';
+import { OrderDetailsComponent } from './MyComponents/order-list/order-details/order-details.component';
 
 const routes: Routes = [
+  { path: 'orders/orderdetails/:id', component: OrderDetailsComponent },
+  { path: 'orders', component: OrderListComponent },
+  { path: 'orderconfirmed', component: OrderConfirmedPageComponent },
   { path: 'checkout', component: CheckoutPageComponent },
   { path: 'editdrug/:id', component: DrugActionsComponent },
   { path: 'adddrug', component: DrugActionsComponent },

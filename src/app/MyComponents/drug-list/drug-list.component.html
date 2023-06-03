@@ -2,13 +2,44 @@
 <div class="wrapper">
   <div class="header">
     <h2>Drugs</h2>
-    <button
-      class="btn btn-primary btn-sm"
-      [routerLink]="'/adddrug'"
-      *ngIf="currentUser?.isAdmin"
-    >
-      Add Drug
-    </button>
+    <div class="header-bottom">
+      <button
+        class="btn btn-primary btn-sm"
+        [routerLink]="'/adddrug'"
+        *ngIf="currentUser?.isAdmin"
+      >
+        Add Drug
+      </button>
+      <div *ngIf="currentUser?.isAdmin === false"></div>
+      <div class="search-drugs">
+        <form
+          style="user-select: auto"
+          class="needs-validation"
+          #myForm="ngForm"
+          (ngSubmit)="searchDrug()"
+          ngNativeValidate
+        >
+          <input
+            type="text"
+            class="form-control"
+            id="searchDrug"
+            placeholder="Search drugs"
+            style="user-select: auto"
+            name="searchDrug"
+            [(ngModel)]="searchKeyword"
+            required
+          />
+          <button
+            type="submit"
+            class="btn btn-success btn-sm"
+            [routerLink]="['/drugs']"
+            [queryParams]="{ search: searchKeyword }"
+          >
+            search
+          </button>
+        </form>
+      </div>
+    </div>
   </div>
 
   <div class="drug-list-container">

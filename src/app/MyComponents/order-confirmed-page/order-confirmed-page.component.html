@@ -1,0 +1,27 @@
+<div class="wrapper">
+  <img
+    src="assets/images/orderConfirmed.svg"
+    alt="orderConfirmedBg"
+    class="orderConfirmedBg"
+  />
+  <div class="bottom">
+    <h2>Thank you for your order!</h2>
+    <div class="bottom-mid">
+      <div>
+        <p>Total amount</p>
+        <h4>{{ newOrder.total }}</h4>
+      </div>
+      <div>
+        <p>Items ordered</p>
+        <h4>X{{ newOrder.totalItems }}</h4>
+      </div>
+    </div>
+
+    <button
+      class="btn btn-success btn-sm"
+      [routerLink]="['/orders/orderdetails/', newOrder.order_id]"
+    >
+      Order Details
+    </button>
+  </div>
+</div>

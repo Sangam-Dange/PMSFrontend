@@ -1,0 +1,79 @@
+<notifier-container></notifier-container>
+<div class="wrapper">
+  <div class="header">
+    <h2>
+      {{ title }}
+    </h2>
+    <!-- <button class="btn btn-primary btn-sm" [routerLink]="'/addsupplier'"
+    *ngIf="currentUser?.isAdmin"
+    >
+      Add Supplier
+    </button> -->
+  </div>
+
+  <div class="container-custom">
+    <h4 *ngIf="orderList.length == 0">No Orders found....</h4>
+
+    <table
+      class="table table-hover"
+      style="user-select: auto"
+      *ngIf="orderList.length > 0"
+    >
+      <thead style="user-select: auto">
+        <tr style="user-select: auto">
+          <th scope="col" style="user-select: auto">Order Id</th>
+          <th
+            scope="col"
+            style="user-select: auto"
+            *ngIf="currentUser?.isAdmin"
+          >
+            Doctor Name
+          </th>
+          <th scope="col" style="user-select: auto">Order No</th>
+          <th scope="col" style="user-select: auto">Total Items</th>
+          <th scope="col" style="user-select: auto">Total</th>
+          <th scope="col" style="user-select: auto">Ordered Date</th>
+          <th scope="col" style="user-select: auto">Pickup Date</th>
+          <th scope="col" style="user-select: auto">Order Detail</th>
+        </tr>
+      </thead>
+      <tbody style="user-select: auto">
+        <tr
+          *ngFor="let order of orderList"
+          class="table-info"
+          style="user-select: auto"
+        >
+          <td scope="row" style="user-select: auto">{{ order.order_id }}</td>
+          <td
+            scope="row"
+            style="user-select: auto"
+            *ngIf="currentUser?.isAdmin"
+          >
+            {{ "Dr. " + order?.user.name }}
+          </td>
+          <td style="user-select: auto">{{ order.order_no }}</td>
+          <td style="user-select: auto">{{ order.totalItems }}</td>
+          <td style="user-select: auto">{{ order.total }}</td>
+          <td style="user-select: auto">
+            {{ order.order_date | date : "medium" }}
+          </td>
+          <td style="user-select: auto">
+            {{
+              order?.pickup_date
+                ? (order?.pickup_date | date : "medium")
+                : "----"
+            }}
+          </td>
+          <td style="user-select: auto">
+            <Button
+              class="btn btn-primary btn-sm"
+              [routerLink]="['orderdetails/', order.order_id]"
+            >
+              See Details
+            </Button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

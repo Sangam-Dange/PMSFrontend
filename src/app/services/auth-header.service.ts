@@ -8,7 +8,7 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root',
 })
 export class AuthHeaderService {
-  header$ = new BehaviorSubject(null);
+  header$ = new BehaviorSubject(this.localstorage.getItem('token'));
   private readonly notifier: NotifierService;
   constructor(
     private http: HttpClient,
@@ -17,12 +17,12 @@ export class AuthHeaderService {
   ) {
     this.notifier = notifierService;
     if (this.localstorage.getItem('token')) {
-      this.header$.next({
-        headers: new HttpHeaders().set(
+      this.header$.next(
+        new HttpHeaders().set(
           'Authorization',
           `Bearer ${this.localstorage.getItem('token')}`
-        ),
-      });
+        )
+      );
     } else {
       this.notifier.notify(
         'error',
@@ -31,30 +31,14 @@ export class AuthHeaderService {
     }
   }
 
-  getHeaderValue(){
-     var header = null;
-     this.header$.subscribe(val=>{
-       header = val;
-    })
-    return header
+  getHeaderValue() {
+    var header = null;
+    this.header$.subscribe((val) => {
+      header = val;
+    });
+    return header;
   }
   ngOnInit() {}
 
-  // get<T>(url) {
-  //   this.createAuthorizationHeader();
-  //   return this.http.get<T>(url, this.header);
-  // }
 
-  // post(url, data) {
-  //   this.createAuthorizationHeader();
-  //   return this.http.post(url, data, this.header);
-  // }
-  // put(url, data) {
-  //   this.createAuthorizationHeader();
-  //   return this.http.put(url, data, this.header);
-  // }
-  // delete(url) {
-  //   this.createAuthorizationHeader();
-  //   return this.http.delete(url, this.header);
-  // }
 }

@@ -23,25 +23,17 @@ export class UsersService {
     return this.currentLoggedInUser.asObservable();
   }
 
-  header = {
-    headers: new HttpHeaders().set(
-      'Authorization',
-      `Bearer ${this.localstorage.getItem('token')}`
-    ),
-  };
-
   constructor(
     @Inject(APP_SERVICE_CONFIG) private config: AppConfig,
-    @Inject(LocalStorageToken) private localstorage: any,
-    private authHeaderService: AuthHeaderService,
+
     private http: HttpClient
   ) {
     console.log('User Service created');
-    console.log(this.authHeaderService.getHeaderValue());
+    this.getUserValue().subscribe((val) => console.log(val));
   }
 
   getUserByToken() {
-    return this.http.get<User>('/api/Auth/getUserByToken', this.header);
+    return this.http.get<User>('/api/Auth/getUserByToken');
   }
   getUsers() {
     return this.http.get<User[]>('/api/Users');
@@ -52,5 +44,4 @@ export class UsersService {
   loginUser(user: LoginUser) {
     return this.http.post('/api/Auth/login', user);
   }
-
 }
