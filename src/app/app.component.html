@@ -1,2 +1,7 @@
-<app-header *ngIf="currentUser"></app-header>
+<app-header
+  *ngIf="
+    currentUser &&
+    (currentUser.isAdmin !== null || currentUser.isSuperAdmin === true)
+  "
+></app-header>
 <router-outlet></router-outlet>

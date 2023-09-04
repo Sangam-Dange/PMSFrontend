@@ -51,3 +51,24 @@
     justify-content: center;
   }
 }
+
+@media (max-width: 990px) {
+  .wrapper {
+    padding-top: 40px;
+  }
+  .wrapper2 {
+    padding-top: 40px;
+  }
+}
+
+// responsive table 
+@media (max-width: 1070px) {
+  .container-custom{
+    width: 100%;
+    overflow-x: scroll;
+  }
+  th,
+  td {
+    width: 150px;
+  }
+}

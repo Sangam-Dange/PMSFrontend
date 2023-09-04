@@ -4,8 +4,11 @@
     <img src="../assets/images/pharmacybg.png" alt="bg" class="main-bg-image" />
   </div>
   <h3>{{ title }}</h3>
-  <form style="user-select: auto" ngNativeValidate>
-    <fieldset style="user-select: auto">
+  <div class="typewriter">
+    <h5>Trusted Medications, Trusted Results</h5>
+  </div>
+  <form style="user-select: auto" ngNativeValidate #singUpForm="ngForm">
+    <fieldset style="user-select: auto" class="field-div">
       <div class="left">
         <div class="form-group" style="user-select: auto">
           <label for="name" class="form-label mt-4" style="user-select: auto"
@@ -20,9 +23,25 @@
             name="name"
             [(ngModel)]="newUser.name"
             required
+            #loginName="ngModel"
+            [ngClass]="{
+              'is-invalid': loginName.invalid && loginName.touched,
+              'is-valid': loginName.valid
+            }"
           />
+          <div
+            class="invalid-feedback"
+            *ngIf="(loginName.invalid && loginName.touched) || loginName.dirty"
+          >
+            <small *ngIf="loginName.errors?.required" class="text-danger"
+              >Full Name is required</small
+            >
+          </div>
         </div>
-        <div class="form-group" style="user-select: auto">
+        <div
+          class="form-group has-danger has-success"
+          style="user-select: auto"
+        >
           <label
             for="InputEmail"
             class="form-label mt-4"
@@ -39,15 +58,33 @@
             name="email"
             [(ngModel)]="newUser.email"
             required
+            #newUserEmail="ngModel"
+            [pattern]="'^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$'"
+            [ngClass]="{
+              'is-invalid': newUserEmail.invalid && newUserEmail.touched,
+              'is-valid': newUserEmail.valid
+            }"
           />
-          <small
-            id="emailHelp"
-            class="form-text text-muted"
-            style="user-select: auto"
-            >We'll never share your email with anyone else.</small
+          <div
+            class="invalid-feedback"
+            *ngIf="
+              (newUserEmail.invalid && newUserEmail.touched) ||
+              newUserEmail.dirty
+            "
           >
+            <small *ngIf="newUserEmail.errors?.required" class="text-danger"
+              >Email is required</small
+            >
+
+            <small *ngIf="newUserEmail.errors?.pattern" class="text-danger"
+              >Please provide a valid email address</small
+            >
+          </div>
         </div>
-        <div class="form-group" style="user-select: auto">
+        <div
+          class="form-group has-danger has-success"
+          style="user-select: auto"
+        >
           <label for="contact" class="form-label mt-4" style="user-select: auto"
             >Contact number</label
           >
@@ -58,9 +95,34 @@
             placeholder="Enter contact number"
             style="user-select: auto"
             name="contact"
+            (keypress)="numericOnly($event)"
             [(ngModel)]="newUser.contact"
             required
+            #newUserContact="ngModel"
+            minlength="10"
+            maxlength="10"
+            [ngClass]="{
+              'is-invalid': newUserContact.invalid && newUserContact.touched,
+              'is-valid': newUserContact.valid
+            }"
           />
+          <div
+            class="invalid-feedback"
+            *ngIf="
+              (newUserContact.invalid && newUserContact.touched) ||
+              newUserContact.dirty
+            "
+          >
+            <small *ngIf="newUserContact.errors?.required" class="text-danger"
+              >Contact is required</small
+            >
+
+            <small
+              *ngIf="newUserContact.errors?.['minlength'] ||newUserContact.errors?.['maxlength'] "
+              class="text-danger"
+              >Contact must be of 10 digit</small
+            >
+          </div>
         </div>
       </div>
       <div class="right">
@@ -109,7 +171,10 @@
           </div>
         </div>
 
-        <div class="form-group" style="user-select: auto">
+        <div
+          class="form-group has-danger has-success"
+          style="user-select: auto"
+        >
           <label
             for="InputPassword"
             class="form-label mt-4"
@@ -125,7 +190,24 @@
             name="password"
             [(ngModel)]="newUser.password"
             required
+            minlength="8"
+            #signUpPass="ngModel"
+            [ngClass]="{
+              'is-invalid': signUpPass.invalid && signUpPass.touched,
+              'is-valid': signUpPass.valid
+            }"
           />
+          <div
+            class="invalid-feedback"
+            *ngIf="signUpPass.invalid && signUpPass.touched"
+          >
+            <small *ngIf="signUpPass.errors?.required" class="text-danger"
+              >Password is required</small
+            >
+            <small *ngIf="signUpPass.errors?.['minlength']" class="text-danger">
+              Password should be min 8 characters</small
+            >
+          </div>
         </div>
       </div>
     </fieldset>
@@ -136,17 +218,24 @@
           class="btn btn-success px-5 py-2"
           style="user-select: auto"
           (click)="handleSignup()"
+          [disabled]="singUpForm.invalid"
         >
           Signup
         </button>
       </div>
-      <div class="mt-3 w-100 d-flex justify-content-center align-iems-center">
+      <div
+        class="mt-3 w-100 d-flex justify-content-center align-iems-center signup-bottom"
+      >
         <small class="text-muted d-inline" style="user-select: auto"
           >Already have an account?</small
         >
         <div class="mx-2">
-         
-          <h5 [routerLink]="'/login'" style="user-select: auto d-inline;cursor: pointer;">login</h5>
+          <h5
+            [routerLink]="'/login'"
+            style="user-select: auto d-inline; cursor: pointer"
+          >
+            login
+          </h5>
         </div>
       </div>
     </div>

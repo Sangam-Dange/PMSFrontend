@@ -11,18 +11,19 @@ import { shareReplay } from 'rxjs';
 export class DrugsService {
   drugs: Drug[] = [];
   constructor(private http: HttpClient) {}
-
+  // baseUrl:string = "https://pms-webapi.azurewebsites.net";
+  baseUrl:string = "https://localhost:7051";
   getAllDrugs() {
-    return this.http.get<Drug[]>('/api/Drugs').pipe(shareReplay(1));
+    return this.http.get<Drug[]>(this.baseUrl + '/api/Drugs').pipe(shareReplay(1));
   }
   getDrugById(drugId: string) {
-    return this.http.get<Drug>(`/api/Drugs/${drugId}`);
+    return this.http.get<Drug>(this.baseUrl + `/api/Drugs/${drugId}`);
   }
   editDrugById(drugId: string, newDrug: NewDrug) {
-    return this.http.put<Drug>(`/api/Drugs/${drugId}`, newDrug);
+    return this.http.put<Drug>(this.baseUrl + `/api/Drugs/${drugId}`, newDrug);
   }
   postDrug(newDrug: NewDrug) {
-    return this.http.post('/api/Drugs', newDrug);
+    return this.http.post(this.baseUrl + '/api/Drugs', newDrug);
   }
 
   deleteDrug(drugId: number) {

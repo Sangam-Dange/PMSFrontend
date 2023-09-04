@@ -15,6 +15,7 @@
     >
       <span class="navbar-toggler-icon" style="user-select: auto"></span>
     </button>
+
     <div
       class="collapse navbar-collapse"
       id="navbarColor03"
@@ -29,66 +30,130 @@
             >
           </a>
         </li>
-        <li class="nav-item" style="user-select: auto">
-          <a class="nav-link" [routerLink]="'/drugs'" style="user-select: auto"
-            >Drugs</a
-          >
-        </li>
-        <li
-          class="nav-item"
-          style="user-select: auto"
-          *ngIf="currentUser.isAdmin"
+        <div
+          *ngIf="!currentUser?.isSuperAdmin"
+          [ngStyle]="
+            currentUser?.isSuperAdmin
+              ? { display: 'hidden' }
+              : { display: 'flex' }
+          "
         >
-          <a
-            class="nav-link"
-            [routerLink]="'/suppliers'"
-            style="user-select: auto"
-            >Suppliers</a
-          >
-        </li>
-        <li class="nav-item" style="user-select: auto">
-          <a
-            class="nav-link"
-            [routerLink]="'/orders'"
-            style="user-select: auto"
-            >Orders</a
-          >
-        </li>
-        <li
-          class="nav-item"
-          style="user-select: auto"
-          *ngIf="!currentUser.isAdmin"
-        >
-          <div
-            class="cart-counter"
-            style="cursor: pointer"
-            [routerLink]="'/checkout'"
-          >
-            <span
-              class="badge rounded-pill bg-success badge-custom"
-              *ngIf="cartCount"
+          <li class="nav-item" style="user-select: auto">
+            <a
+              class="nav-link"
+              [routerLink]="'/drugs'"
               style="user-select: auto"
-              >{{ cartCount }}</span
+              >Drugs</a
             >
-            <span class="material-icons-round">shopping_cart</span>
-          </div>
-          <a
-            class="nav-link"
+          </li>
+          <li
+            class="nav-item"
             style="user-select: auto"
-            [routerLink]="'/checkout'"
-            >Cart</a
+            *ngIf="currentUser.isAdmin"
+          >
+            <a
+              class="nav-link"
+              [routerLink]="'/suppliers'"
+              style="user-select: auto"
+              >Suppliers</a
+            >
+          </li>
+          <li class="nav-item" style="user-select: auto">
+            <a
+              class="nav-link"
+              [routerLink]="'/orders'"
+              style="user-select: auto"
+              >Orders</a
+            >
+          </li>
+
+          <li class="nav-item dropdown" ngbDropdown>
+            <a
+              class="nav-link dropdown-toggle"
+              data-bs-toggle="dropdown"
+              role="button"
+              aria-haspopup="true"
+              aria-expanded="false"
+              ngbDropdownToggle
+              >Profile</a
+            >
+            <div class="dropdown-menu" ngbDropdownMenu>
+              <a class="dropdown-item">{{ currentUser?.name }}</a>
+              <a class="dropdown-item"
+                >Role-{{
+                  currentUser.isSuperAdmin
+                    ? currentUser.name
+                    : currentUser?.isAdmin
+                    ? "Admin"
+                    : "Doctor"
+                }}</a
+              >
+              <a class="dropdown-item">{{ currentUser?.email }}</a>
+              <a class="dropdown-item">+91-{{ currentUser?.contact }}</a>
+              <!-- <a
+                class="dropdown-item"
+                *ngIf="!currentUser.isAdmin"
+                [routerLink]="'/address'"
+                >Address</a
+              > -->
+              <div class="dropdown-divider"></div>
+              <button
+                class="btn btn-primary btn-sm logout-btn"
+                [routerLink]="'/login'"
+                *ngIf="currentUser"
+                (click)="handleLogout()"
+              >
+                Logout
+              </button>
+            </div>
+          </li>
+          <li
+            class="nav-item"
+            style="user-select: auto"
+            *ngIf="!currentUser.isAdmin"
+            id="cart-div"
+          >
+            <div
+              class="cart-counter"
+              style="cursor: pointer"
+              [routerLink]="'/checkout'"
+            >
+              <span
+                class="badge rounded-pill bg-success badge-custom"
+                *ngIf="cartCount"
+                style="user-select: auto"
+                >{{ cartCount }}</span
+              >
+              <span class="material-icons-round">shopping_cart</span>
+            </div>
+            <a
+              class="nav-link"
+              style="user-select: auto"
+              [routerLink]="'/checkout'"
+              >Cart</a
+            >
+          </li>
+        </div>
+
+        <li
+          class="nav-item"
+          style="user-select: auto; margin-right: 50px"
+          *ngIf="currentUser?.isSuperAdmin"
+        >
+          <a class="nav-link" [routerLink]="'/users'" style="user-select: auto"
+            >Users</a
           >
         </li>
-        <li>
-          <button
-            class="btn btn-primary btn-sm logout-btn"
-            [routerLink]="'/login'"
-            *ngIf="currentUser"
-            (click)="handleLogout()"
-          >
-            Logout
-          </button>
-        </li>
+
+        <button
+          class="btn btn-primary btn-sm logout-btn"
+          [routerLink]="'/login'"
+          *ngIf="currentUser?.isSuperAdmin"
+          (click)="handleLogout()"
+          style="margin-left: -25px"
+        >
+          Logout
+        </button>
       </ul>
     </div>
   </div>

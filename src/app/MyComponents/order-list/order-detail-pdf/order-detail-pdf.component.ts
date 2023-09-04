@@ -1,16 +1,15 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import jsPDF from 'jspdf';
 import { OrderService } from 'src/app/services/order.service';
-
+import jsPDF from 'jspdf';
 @Component({
-  selector: 'app-order-details',
-  templateUrl: './order-details.component.html',
-  styleUrls: ['./order-details.component.scss'],
+  selector: 'app-order-detail-pdf',
+  templateUrl: './order-detail-pdf.component.html',
+  styleUrls: ['./order-detail-pdf.component.scss'],
 })
-export class OrderDetailsComponent {
-  title: string = 'Order Details';
+export class OrderDetailPdfComponent {
   orderDetails!: any;
+  @ViewChild('tableDiv', { static: false }) el!: ElementRef;
 
   constructor(
     private orderService: OrderService,
@@ -18,16 +17,21 @@ export class OrderDetailsComponent {
   ) {}
 
   ngOnInit() {
-   this.orderService
+    this.orderService
       .getOrderDetails(this.activeRoute.snapshot.paramMap.get('id'))
       .subscribe({
         next: (val) => {
           this.orderDetails = val;
-          console.log(this.orderDetails)
         },
       });
   }
 
-
-
+  makePdf() {
+    let pdf = new jsPDF('p', 'pt', 'a4');
+    pdf.html(this.el.nativeElement, {
+      callback: (pdf) => {
+        pdf.save('OrderInvoice.pdf');
+      },
+    });
+  }
 }

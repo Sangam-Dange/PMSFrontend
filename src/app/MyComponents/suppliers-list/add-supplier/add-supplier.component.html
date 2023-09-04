@@ -31,8 +31,20 @@
             name="fullName"
             [(ngModel)]="newSupplier.supplier_name"
             required
+            #supDetail="ngModel"
+            [ngClass]="{
+              'is-invalid': supDetail.invalid && supDetail.touched,
+              'is-valid': supDetail.valid
+            }"
           />
-          <div class="valid-feedback">Looks good!</div>
+          <div
+            class="invalid-feedback"
+            *ngIf="(supDetail.invalid && supDetail.touched) || supDetail.dirty"
+          >
+            <small *ngIf="supDetail.errors?.required" class="text-danger"
+              >Full Name is required</small
+            >
+          </div>
         </div>
         <div class="form-group" style="user-select: auto">
           <label
@@ -51,13 +63,29 @@
             style="user-select: auto"
             [(ngModel)]="newSupplier.supplier_email"
             [ngModelOptions]="{ standalone: true }"
+            required
+            #supEmail="ngModel"
+            [pattern]="'^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$'"
+            [ngClass]="{
+              'is-invalid': supEmail.invalid && supEmail.touched,
+              'is-valid': supEmail.valid
+            }"
           />
-          <small
-            id="emailHelp"
-            class="form-text text-muted"
-            style="user-select: auto"
-            >We'll never share your email with anyone else.</small
+          <div
+          class="invalid-feedback"
+          *ngIf="
+            (supEmail.invalid && supEmail.touched) ||
+            supEmail.dirty
+          "
+        >
+          <small *ngIf="supEmail.errors?.required" class="text-danger"
+            >Email is required</small
           >
+
+          <small *ngIf="supEmail.errors?.pattern" class="text-danger"
+            >Please provide a valid email address</small
+          >
+        </div>
         </div>
         <div class="form-group" style="user-select: auto">
           <label
@@ -93,13 +121,39 @@
             style="user-select: auto"
             [(ngModel)]="newSupplier.supplier_phone"
             [ngModelOptions]="{ standalone: true }"
+            required
+            #supContact="ngModel"
+            minlength="10"
+            maxlength="10"
+            [ngClass]="{
+              'is-invalid': supContact.invalid && supContact.touched,
+              'is-valid': supContact.valid
+            }"
           />
+          <div
+            class="invalid-feedback"
+            *ngIf="
+              (supContact.invalid && supContact.touched) ||
+              supContact.dirty
+            "
+          >
+            <small *ngIf="supContact.errors?.required" class="text-danger"
+              >Contact is required</small
+            >
+
+            <small
+              *ngIf="supContact.errors?.['minlength'] ||supContact.errors?.['maxlength'] "
+              class="text-danger"
+              >Contact must be of 10 digit</small
+            >
+          </div>
         </div>
         <div class="text-center mt-4">
           <button
             type="submit"
             class="btn btn-success px-5 py-2"
             style="user-select: auto"
+            [disabled]="myForm.invalid"
           >
             {{ id == "" ? "Add" : "Edit" }}
             Supplier

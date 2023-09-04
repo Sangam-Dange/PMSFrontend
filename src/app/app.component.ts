@@ -20,6 +20,19 @@ export class AppComponent implements OnInit {
     notifierService: NotifierService
   ) {
     this.notifier = notifierService;
+
+    if (localStorage.getItem('token')) {
+      this.userServices.getUserByToken().subscribe({
+        next: (user) => {
+          this.userServices.changeUserValue(user);
+          this.userServices.isLoggedIn();
+        },
+        error: (error) => {
+          this.router.navigate(['/login']);
+          this.notifier.notify('error', error.error);
+        },
+      });
+    }
     this.userServices.getUserValue().subscribe({
       next: (val) => {
         this.currentUser = val;
@@ -27,15 +40,5 @@ export class AppComponent implements OnInit {
     });
   }
 
-  ngOnInit() {
-    this.userServices.getUserByToken().subscribe({
-      next: (user) => {
-        this.userServices.changeUserValue(user);
-      },
-      error: (error) => {
-        this.router.navigate(['/login']);
-        this.notifier.notify('error', error.error);
-      },
-    });
-  }
+  ngOnInit() {}
 }

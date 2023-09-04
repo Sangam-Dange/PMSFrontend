@@ -23,12 +23,14 @@
   .container-custom {
     padding: 0px 20px;
     margin-top: 20px;
+    width: 100%;
   }
 
   tbody {
     display: block;
     height: calc(100vh - 260px);
     overflow-y: scroll;
+    padding-bottom: 50px;
   }
   thead,
   tbody tr {
@@ -36,9 +38,40 @@
     width: 100%;
     table-layout: fixed; /* even columns width , fix width of table too*/
   }
+  tbody tr td {
+    min-width: 160px;
+  }
   thead {
     width: calc(
       100% - 1em
     ); /* scrollbar is average 1em/16px width, remove it from thead width */
+  }
+
+  .operations {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+  }
+}
+
+@media (max-width: 990px) {
+  .header {
+    margin-top: 40px;
+  }
+}
+@media (max-width: 600px) {
+  .middle {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 1070px) {
+  .container-custom{
+    width: 100%;
+    overflow-x: scroll;
+  }
+  th,
+  td {
+    width: 150px;
   }
 }

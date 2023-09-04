@@ -11,6 +11,7 @@ import { DrugsService } from './services/drugs.service';
 import { OrderService } from 'src/app/services/order.service';
 import { NotifierService } from 'angular-notifier';
 import { LocalStorageToken } from 'src/app/localstorage.token';
+
 import { User } from '../users-list/User';
 import { UsersService } from 'src/app/services/users.service';
 import { ActivatedRoute } from '@angular/router';
@@ -28,6 +29,11 @@ export class DrugListComponent implements OnInit, OnChanges {
   currentUser!: User;
   searchKeyword!: string;
   private readonly notifier: NotifierService;
+  // pagination
+  page: number = 1;
+  count: number = 0;
+  tableSize: number = 8;
+  tableSizes: any = [5, 10, 15, 20];
 
   constructor(
     private drugsService: DrugsService,
@@ -50,6 +56,10 @@ export class DrugListComponent implements OnInit, OnChanges {
   }
 
   ngOnInit() {
+    this.fetchDrug();
+  }
+
+  fetchDrug(): void {
     this.drugsService.getAllDrugs().subscribe((drugs) => {
       this.drugs = drugs;
       this.constDrugs = drugs;
@@ -91,7 +101,7 @@ export class DrugListComponent implements OnInit, OnChanges {
 
   searchDrug() {
     this.tempDrugs = this.constDrugs;
-
+    this.page = 1;
     if (this.searchKeyword) {
       this.drugs = this.tempDrugs.filter(
         (x) =>
@@ -107,5 +117,15 @@ export class DrugListComponent implements OnInit, OnChanges {
   deleteDrug(drugId: number) {
     this.drugsService.deleteDrug(drugId).subscribe((val) => console.log(val));
     this.drugs = this.drugs.filter((x) => x.drug_id !== drugId);
+  }
+
+  onTableDataChange(event: any) {
+    this.page = event;
+    this.fetchDrug();
+  }
+  onTableSizeChange(event: any) {
+    this.tableSize = event.target.value;
+    this.page = 1;
+    this.fetchDrug();
   }
 }

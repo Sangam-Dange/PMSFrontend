@@ -21,7 +21,7 @@ export class DrugActionsComponent {
     price: 0,
     batch_id: '',
     quantity: 0,
-    expiry_date: this.date,
+    expiry_date: null,
     supplierDetailId: null,
   };
 

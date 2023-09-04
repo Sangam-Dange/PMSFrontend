@@ -26,7 +26,9 @@
           <td scope="row" style="user-select: auto">{{ item.drug_id }}</td>
           <td style="user-select: auto">{{ item.drug_name }}</td>
           <td style="user-select: auto">{{ item.price }}</td>
-          <td style="user-select: auto">{{ item.selectedQuantity }}</td>
+          <td style="user-select: auto">
+            {{ item.selectedQuantity }}
+          </td>
           <td style="user-select: auto">
             {{ "Rs." + item.subTotal }}
           </td>
@@ -48,7 +50,7 @@
   </div>
 </div>
 
-<div class="wrapper2" *ngIf="!cartItems">
+<div class="wrapper2" *ngIf="cartItems?.length === 0 || !cartItems">
   <img src="assets/images/emptyCart.svg" alt="emptyBg" class="emptyBg" />
   <div>
     <h2>Your cart is empty.</h2>

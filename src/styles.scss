@@ -1,22 +1,23 @@
 /* You can add global styles to this file, and also import other style files */
 @import 'material-icons/iconfont/material-icons.scss';
 @import '../node_modules/angular-notifier/styles.scss';
+
 $s-color: #4BBF73;
 $t-color: #1f9bcf;
+$h-color:#ff70a6
 
+// ::-webkit-scrollbar {
+//     width: 12px;
+// }
 
-::-webkit-scrollbar {
-    width: 12px;
-}
+// ::-webkit-scrollbar-track {
+//     border-radius: 8px;
+//     background-color: #e7e7e7;
+//     border: 1px solid #cacaca;
+//     box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
+// }
 
-::-webkit-scrollbar-track {
-    border-radius: 8px;
-    background-color: #e7e7e7;
-    border: 1px solid #cacaca;
-    box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
-}
-
-::-webkit-scrollbar-thumb {
-    border-radius: 8px;
-    background-color: #363636;
-}
+// ::-webkit-scrollbar-thumb {
+//     border-radius: 8px;
+//     background-color: #363636;
+// }

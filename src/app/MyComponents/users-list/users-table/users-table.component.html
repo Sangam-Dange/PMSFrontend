@@ -1,48 +1,113 @@
-<h2>
-  {{ title }}
-</h2>
-<table class="table table-hover" style="user-select: auto">
-  <thead style="user-select: auto">
-    <tr style="user-select: auto">
-      <th scope="col" style="user-select: auto">Id</th>
-      <th scope="col" style="user-select: auto">Name</th>
-      <th scope="col" style="user-select: auto">Email</th>
-      <th scope="col" style="user-select: auto">Contact Number</th>
-      <th scope="col" style="user-select: auto">Requested For</th>
-      <th scope="col" style="user-select: auto">Role</th>
-      <th scope="col" style="user-select: auto">Authorize</th>
-    </tr>
-  </thead>
-  <tbody style="user-select: auto">
-    <tr
-      *ngFor="let user of userList"
-      class="table-active"
-      style="user-select: auto"
-      [ngClass]="user.isAdmin == undefined ? 'table-danger' : 'table-success'"
+<div class="wrapper">
+  <h2>
+    {{ title }}
+  </h2>
+
+  <ul class="nav nav-tabs" role="tablist">
+    <li class="nav-item" role="presentation">
+      <a
+        class="nav-link"
+        data-bs-toggle="tab"
+        href="#auhtorizedUsers"
+        aria-selected="false"
+        role="tab"
+        tabindex="-1"
+        >Authorized Users</a
+      >
+    </li>
+    <li class="nav-item" role="presentation">
+      <a
+        class="nav-link active"
+        data-bs-toggle="tab"
+        href="#UnAutorizedUsers"
+        aria-selected="true"
+        role="tab"
+        >UnAuthorized Users</a
+      >
+    </li>
+  </ul>
+
+  <div id="myTabContent" class="tab-content">
+    <div class="tab-pane fade" id="auhtorizedUsers" role="tabpanel">
+      <table class="table table-hover" style="user-select: auto">
+        <thead style="user-select: auto">
+          <tr style="user-select: auto">
+            <th scope="col" style="user-select: auto">Id</th>
+            <th scope="col" style="user-select: auto">Name</th>
+            <th scope="col" style="user-select: auto">Email</th>
+            <th scope="col" style="user-select: auto">Contact Number</th>
+
+            <th scope="col" style="user-select: auto">Role</th>
+            <th scope="col" style="user-select: auto">Authorize</th>
+          </tr>
+        </thead>
+        <tbody style="user-select: auto">
+          <tr
+            *ngFor="let user of AuthUsers"
+            class="table-active table-success"
+            style="user-select: auto"
+            [ngStyle]="user.isSuperAdmin && { display: 'hidden' }"
+          >
+            <td scope="row" style="user-select: auto">{{ user.id }}</td>
+            <td style="user-select: auto">{{ user.name }}</td>
+            <td style="user-select: auto">{{ user.email }}</td>
+            <td style="user-select: auto">{{ user.contact }}</td>
+
+            <td style="user-select: auto">
+              {{ user.isAdmin == true ? "Admin" : "Doctor" }}
+            </td>
+            <td style="user-select: auto">
+              <button
+                class="btn btn-primary btn-sm"
+                (click)="unAuthorizeUser(user)"
+              >
+                Remove Authority
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div
+      class="tab-pane fade active show"
+      id="UnAutorizedUsers"
+      role="tabpanel"
     >
-      <td scope="row" style="user-select: auto">{{ user.id }}</td>
-      <td style="user-select: auto">{{ user.name }}</td>
-      <td style="user-select: auto">{{ user.email }}</td>
-      <td style="user-select: auto">{{ user.contact }}</td>
-      <td style="user-select: auto">{{ user.requestedFor }}</td>
-      <td style="user-select: auto">
-        {{
-          user.isAdmin == undefined
-            ? "Unauthorized"
-            : user.isAdmin == true
-            ? "Admin"
-            : "Doctor"
-        }}
-      </td>
-      <td style="user-select: auto">
-        <button class="btn btn-primary" (click)="authorizeUser(user?.id)">
-          {{
-            user.isAdmin == undefined
-              ? "Make " + user.requestedFor
-              : "Remove Authority"
-          }}
-        </button>
-      </td>
-    </tr>
-  </tbody>
-</table>
+      <table class="table table-hover" style="user-select: auto">
+        <thead style="user-select: auto">
+          <tr style="user-select: auto">
+            <th scope="col" style="user-select: auto">Id</th>
+            <th scope="col" style="user-select: auto">Name</th>
+            <th scope="col" style="user-select: auto">Email</th>
+            <th scope="col" style="user-select: auto">Contact Number</th>
+            <th scope="col" style="user-select: auto">Requested For</th>
+
+            <th scope="col" style="user-select: auto">Authorize</th>
+          </tr>
+        </thead>
+        <tbody style="user-select: auto">
+          <tr
+            *ngFor="let user of UnAuthUsers"
+            class="table-active table-danger"
+            style="user-select: auto"
+            [ngStyle]="user.isSuperAdmin && { display: 'none' }"
+          >
+            <td scope="row" style="user-select: auto">{{ user.id }}</td>
+            <td style="user-select: auto">{{ user.name }}</td>
+            <td style="user-select: auto">{{ user.email }}</td>
+            <td style="user-select: auto">{{ user.contact }}</td>
+            <td style="user-select: auto">{{ user.requestedFor }}</td>
+            <td style="user-select: auto">
+              <button
+                class="btn btn-primary btn-sm"
+                (click)="authorizeUser(user)"
+              >
+                {{ "Make " + user.requestedFor }}
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

@@ -1,3 +1,4 @@
+@import "../../../styles.scss";
 .landing-container {
   display: flex;
   align-items: center;
@@ -6,15 +7,14 @@
   width: 100vw;
   overflow: hidden;
   position: relative;
-  .blob1{
+  .blob1 {
     height: 600px;
     position: absolute;
     bottom: -300px;
     right: -150px;
     z-index: -10;
-    
   }
-  .blob2{
+  .blob2 {
     height: 800px;
     position: absolute;
     top: -160px;
@@ -22,14 +22,98 @@
     z-index: -10;
     transform: rotateX(30deg);
   }
+  
+  .typewriter h5 {
+    overflow: hidden; /* Ensures the content is not revealed until the animation */
+    border-right: 0.15em solid $s-color; /* The typwriter cursor */
+    color: $h-color;
+    white-space: nowrap; /* Keeps the content on a single line */
+    margin: 0 auto; /* Gives that scrolling effect as the typing happens */
+    letter-spacing: 0.15em; /* Adjust as needed */
+    animation: typing 3.5s steps(30, end), blink-caret 0.5s step-end infinite;
+    
+  }
+
+  /* The typing effect */
+  @keyframes typing {
+    from {
+      width: 0;
+    }
+    to {
+      width: 100%;
+    }
+  }
+
+  /* The typewriter cursor effect */
+  @keyframes blink-caret {
+    from,
+    to {
+      border-color: transparent;
+    }
+    50% {
+      border-color: $s-color;
+    }
+  }
+
   h1 {
     font-weight: bold;
   }
   h4 {
     margin-bottom: 10px;
   }
+
+  .auth-buttons {
+    position: absolute;
+    display: flex;
+    top: 10px;
+    right: 0px;
+    button {
+      margin-right: 10px;
+      width: 80px;
+      height: 35px;
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+
+  .social-handles{
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top:60px;
+    right: -20px;
+    svg{
+      height: 28px;
+    }
+  }
+   
+  .p-logo{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    height:50px;
+    position: absolute;
+    top:2px;
+    left: 20px;
+    img{
+      height: 30px;
+      margin-right: 5px;
+    }
+    h6{
+      
+      margin: 0;
+    }
+  }
+
   .side-container {
     margin-right: 50px;
+    margin-left: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
   }
   .pharmacy-logo {
     height: 100px;
@@ -41,5 +125,37 @@
   .landingBg {
     height: 400px;
     margin-bottom: 80px;
+  }
+}
+
+@media (max-width: 768px) {
+  .blob1 {
+    height: 500px !important; /* Hide blob1 on smaller screens */
+  }
+
+  .blob2 {
+    height: 600px !important; /* Hide blob2 on smaller screens */
+  }
+
+  .landingBg {
+    position: absolute; /* Hide blob2 on smaller screens */
+    height: 150px; /* Adjusted background height for smaller screens */
+    z-index: -1;
+    opacity: 0.9;
+  }
+
+  .pharmacy-logo {
+    height: 60px; /* Adjusted logo height for smaller screens */
+  }
+  .side-container {
+    margin-left: 15px;
+    position: absolute;
+    bottom: 60px;
+  }
+}
+
+@media (max-width: 500px) {
+  .side-container{
+    width: 85vw;
   }
 }

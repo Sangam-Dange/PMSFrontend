@@ -8,9 +8,10 @@ export interface PlaceOrder {
   createOrderDto: {
     total: number;
     userId: number;
-    totalItems:number;
+    totalItems: number;
     order_date: Date;
     pickup_date?: Date;
+    email: string;
   };
   orderDetails: OrderDetails[];
 }

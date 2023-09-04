@@ -10,7 +10,7 @@ import { NotifierService } from 'angular-notifier';
   styleUrls: ['./signup-page.component.scss'],
 })
 export class SignupPageComponent {
-  title = 'Welcome to PMS';
+  title = 'Welcome to PharmaShop';
   alertCondition: boolean = false;
   message!: string;
   alertType!: string;
@@ -46,8 +46,14 @@ export class SignupPageComponent {
         }, 2000);
       },
       (error) => {
-        this.notifier.notify('success', error.error);
+        this.notifier.notify('error', error.error);
       }
     );
+  }
+
+  numericOnly(event): boolean {
+    let patt = /^([0-9])$/;
+    let result = patt.test(event.key);
+    return result;
   }
 }

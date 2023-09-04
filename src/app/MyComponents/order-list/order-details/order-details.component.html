@@ -5,6 +5,7 @@
       {{ title }}
     </h2>
   </div>
+
   <div class="middle">
     <div>
       <p>Total amount</p>
@@ -20,7 +21,7 @@
     </div>
   </div>
 
-  <div class="container-custom">
+  <div class="container-custom" #tableDiv>
     <h4 *ngIf="orderDetails?.orderDetail.length == 0">
       No Order Details found....
     </h4>
@@ -29,11 +30,12 @@
       class="table table-hover"
       style="user-select: auto"
       *ngIf="orderDetails?.orderDetail.length > 0"
+      id="table"
     >
       <thead style="user-select: auto">
         <tr style="user-select: auto">
           <th scope="col" style="user-select: auto">Drug Id</th>
-          <th scope="col" style="user-select: auto">Batch Id</th>
+          <!-- <th scope="col" style="user-select: auto">Batch Id</th> -->
           <th scope="col" style="user-select: auto">Drug Name</th>
           <th scope="col" style="user-select: auto">Expiry Date</th>
           <th scope="col" style="user-select: auto">Price</th>
@@ -50,7 +52,7 @@
           <td scope="row" style="user-select: auto">
             {{ order?.drug.drug_id }}
           </td>
-          <td style="user-select: auto">{{ order?.drug.batch_id }}</td>
+          <!-- <td style="user-select: auto">{{ order?.drug.batch_id }}</td> -->
           <td style="user-select: auto">{{ order?.drug.drug_name }}</td>
           <td style="user-select: auto">
             {{ order?.drug.expiry_date | date : "mediumDate" }}
@@ -67,5 +69,15 @@
         </tr>
       </tbody>
     </table>
+  </div>
+
+  <div class="operations" class="operations">
+    <button
+      class="btn btn-success px-3 py-2 mx-2"
+      style="user-select: auto"
+      [routerLink]="['/orders/orderpdf/', orderDetails.order.order_id]"
+    >
+      Generate Pdf
+    </button>
   </div>
 </div>

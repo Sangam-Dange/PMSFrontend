@@ -1,0 +1,74 @@
+<notifier-container></notifier-container>
+<div class="wrapper">
+  <div class="center" #tableDiv>
+    <h2>Order Invoice</h2>
+    <div class="middle">
+      <div>
+        <p>Total amount</p>
+        <h4>{{ "Rs. " + orderDetails?.order.total }}</h4>
+      </div>
+      <div>
+        <p>Items ordered</p>
+        <h4>X{{ orderDetails?.order.totalItems }}</h4>
+      </div>
+      <div>
+        <p>Ordered date</p>
+        <h4>{{ orderDetails?.order.order_date | date : "short" }}</h4>
+      </div>
+    </div>
+
+    <div class="container-custom">
+      <h4 *ngIf="orderDetails?.orderDetail.length == 0">
+        No Order Details found....
+      </h4>
+
+      <table
+        class="table table-hover"
+        style="user-select: auto"
+        *ngIf="orderDetails?.orderDetail.length > 0"
+        id="table"
+      >
+        <thead style="user-select: auto">
+          <tr style="user-select: auto">
+            <th scope="col" style="user-select: auto">Drug Name</th>
+            <th scope="col" style="user-select: auto">Expiry Date</th>
+            <th scope="col" style="user-select: auto">Price</th>
+            <th scope="col" style="user-select: auto">Quantity Bought</th>
+            <th scope="col" style="user-select: auto">Sub Total</th>
+          </tr>
+        </thead>
+        <tbody style="user-select: auto">
+          <tr
+            *ngFor="let order of orderDetails?.orderDetail"
+            class="table-info"
+            style="user-select: auto"
+          >
+            <td style="user-select: auto">{{ order?.drug.drug_name }}</td>
+            <td style="user-select: auto">
+              {{ order?.drug.expiry_date | date : "mediumDate" }}
+            </td>
+            <td style="user-select: auto">
+              {{ order?.drug.price }}
+            </td>
+            <td style="user-select: auto">
+              {{ order?.drug_quantity }}
+            </td>
+            <td style="user-select: auto">
+              {{ order?.sub_total }}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="operations" class="operations">
+    <button
+      class="btn btn-success px-3 py-2 mx-2"
+      style="user-select: auto"
+      (click)="makePdf()"
+    >
+      Download Pdf
+    </button>
+  </div>
+</div>

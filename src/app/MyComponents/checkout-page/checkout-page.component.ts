@@ -6,6 +6,7 @@ import { User } from '../users-list/User';
 import { UsersService } from 'src/app/services/users.service';
 import { PlaceOrder } from './PlaceOrder';
 import { Router } from '@angular/router';
+import { EmailDto } from './EmailDto';
 
 @Component({
   selector: 'app-checkout-page',
@@ -25,7 +26,7 @@ export class CheckoutPageComponent {
   ) {
     this.orderServices.getCartItem().subscribe((cartItems) => {
       this.cartItems = cartItems;
-      console.log(this.cartItems , cartItems)
+
       this.total = cartItems?.reduce(
         (sum, current) => sum + current.subTotal,
         0
@@ -56,6 +57,7 @@ export class CheckoutPageComponent {
         userId: this.currentUser.id,
         totalItems: this.totalItems,
         order_date: new Date(),
+        email: this.currentUser.email,
       },
       orderDetails: this.cartItems.map((val) => {
         return {
@@ -65,11 +67,16 @@ export class CheckoutPageComponent {
         };
       }),
     };
-
+    const email: EmailDto = {
+      to: this.currentUser.email,
+      subject: 'Your order has been places successfully',
+      body: this.currentUser.name,
+    };
     this.orderServices.placeOrder(newOrder).subscribe({
       next: (val) => {
         this.localstorage.removeItem('CartItems');
         this.orderServices.setCartItem(null);
+        this.orderServices.sendEmail(email).subscribe((x) => {});
         this.localstorage.setItem('currentOrder', JSON.stringify(val));
         this.router.navigate([`/orderconfirmed`]);
       },

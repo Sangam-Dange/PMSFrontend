@@ -44,11 +44,26 @@
 
   <div class="drug-list-container">
     <app-drug-card
-      *ngFor="let drug of drugs"
+      *ngFor="
+        let drug of drugs
+          | paginate
+            : {
+                itemsPerPage: tableSize,
+                currentPage: page,
+                totalItems: count
+              };
+        let i = index
+      "
       [drug]="drug"
       (selectedCartItemEvent)="handleAddToCart($event)"
       (deleteDrugEvent)="deleteDrug($event)"
       [currentUser]="currentUser"
     ></app-drug-card>
   </div>
+  <pagination-controls
+    previousLabel="Prev"
+    nextLabel="Next"
+    (pageChange)="onTableDataChange($event)"
+  >
+  </pagination-controls>
 </div>

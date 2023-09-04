@@ -17,7 +17,7 @@
       .search-drugs {
         form {
           display: flex;
-          button{
+          button {
             margin-left: 10px;
           }
         }
@@ -30,5 +30,22 @@
     width: 100vw;
     flex-wrap: wrap;
     margin-top: 50px;
+  }
+}
+
+@media (max-width: 990px) {
+  .header {
+    margin-top: 40px;
+  }
+}
+@media (max-width: 480px) {
+  .header {
+    .header-bottom {
+      flex-direction: column;
+      align-items: flex-start !important;
+      .search-drugs {
+        margin-top: 20PX;
+      }
+    }
   }
 }

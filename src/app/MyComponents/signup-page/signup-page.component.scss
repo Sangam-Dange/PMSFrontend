@@ -11,6 +11,40 @@
     22.3px 22.3px 17.9px rgba(0, 0, 0, 0.042),
     41.8px 41.8px 33.4px rgba(0, 0, 0, 0.05),
     100px 100px 80px rgba(0, 0, 0, 0.07);
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  align-items: center;
+  .typewriter h5 {
+    overflow: hidden;
+    border-right: 0.15em solid $s-color;
+    white-space: nowrap;
+    margin: 0 auto;
+    letter-spacing: 0.15em;
+    animation: typing 3.5s steps(30, end), blink-caret 0.5s step-end infinite;
+  }
+
+  /* The typing effect */
+  @keyframes typing {
+    from {
+      width: 0;
+    }
+    to {
+      width: 100%;
+    }
+  }
+
+  /* The typewriter cursor effect */
+  @keyframes blink-caret {
+    from,
+    to {
+      border-color: transparent;
+    }
+    50% {
+      border-color: $s-color;
+    }
+  }
+
   img {
     height: 55px;
   }
@@ -20,22 +54,48 @@
   h5 {
     color: $t-color;
   }
-  form fieldset{
-     display: flex;
-     flex-direction: row;
-    .left{
-       margin-right: 30px;
+  form fieldset {
+    display: flex;
+    flex-direction: row;
+    .left {
+      margin-right: 30px;
     }
-    .right{
-      .radio-div{
-        .radios{
+    .right {
+      .radio-div {
+        .radios {
           display: flex;
-          div{
+          div {
             margin-right: 10px;
           }
         }
         margin-bottom: 10px;
       }
     }
+  }
+}
+
+@media (max-width: 700px) {
+  .custom-container {
+    width: 80vw;
+  }
+}
+@media (max-width: 640px) {
+}
+@media (max-width: 560px) {
+  .custom-container {
+    padding: 40px 20px;
+  }
+  .field-div {
+    display: flex;
+    flex-direction: column !important;
+    .left {
+      margin-right: 0px;
+    }
+  }
+
+  .signup-bottom {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
 }

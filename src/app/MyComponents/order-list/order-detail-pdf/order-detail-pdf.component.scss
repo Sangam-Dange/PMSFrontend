@@ -1,0 +1,73 @@
+.wrapper {
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  .center {
+    width: 595px;
+    height: 842px;
+    padding-top: 100px;
+    text-align: center;
+    .middle {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0px 40px;
+      div {
+        text-align: center;
+      }
+    }
+    .container-custom {
+      padding: 0px 20px;
+      margin-top: 20px;
+      width: 100%;
+    }
+    tbody {
+      display: block;
+      height: calc(100vh - 260px);
+      overflow-y: scroll;
+      padding-bottom: 50px;
+    }
+    thead,
+    tbody tr {
+      display: table;
+      width: 100%;
+      table-layout: fixed; /* even columns width , fix width of table too*/
+    }
+    thead {
+      width: calc(
+        100% - 1em
+      ); /* scrollbar is average 1em/16px width, remove it from thead width */
+    }
+  }
+
+  .operations {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+  }
+}
+
+@media (max-width: 600px) {
+  .middle {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 1070px) {
+  .wrapper {
+    align-items: flex-start;
+  }
+  .container-custom{
+    width: 100%;
+    overflow-x: scroll;
+   
+  }
+  th,
+  td {
+    width: 150px;
+  }
+}

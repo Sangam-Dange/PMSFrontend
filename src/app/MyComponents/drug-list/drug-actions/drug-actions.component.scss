@@ -1,7 +1,6 @@
 @import "../../../../styles.scss";
 
 .add-drug-container {
-  height: 100vh;
   width: 100vw;
   display: flex;
   align-items: center;
@@ -9,8 +8,7 @@
 
   .custom-container {
     width: fit-content;
-
-    margin-top: 40px;
+     margin-top: 70px;
     padding: 40px 50px;
     border: 2px solid black;
     border-radius: 7px;
@@ -41,10 +39,10 @@
       flex-direction: column;
       .drug-top {
         display: flex;
-        .drug-left{
+        .drug-left {
           margin-right: 15px;
         }
-        .drug-right{
+        .drug-right {
           margin-left: 15px;
         }
       }
@@ -58,5 +56,15 @@
     h5 {
       color: $t-color;
     }
+  }
+}
+
+@media (max-width: 630px) {
+  .custom-container {
+    width: 90vw !important;
+    margin-bottom: 60px !important;
+  }
+  .drug-top {
+    flex-direction: column;
   }
 }

@@ -6,6 +6,7 @@ import { PlaceOrder } from '../MyComponents/checkout-page/PlaceOrder';
 import { Order } from '../MyComponents/order-list/Order';
 import { AuthHeaderService } from './auth-header.service';
 import { LocalStorageToken } from '../localstorage.token';
+import { EmailDto } from '../MyComponents/checkout-page/EmailDto';
 
 @Injectable()
 export class OrderService {
@@ -25,19 +26,26 @@ export class OrderService {
   getCartItem(): Observable<CartItem[]> {
     return this.cartItemSubject.asObservable();
   }
-
+  // baseUrl:string = "https://pms-webapi.azurewebsites.net";
+  baseUrl:string = "https://localhost:7051"
   placeOrder(placeOrder: PlaceOrder) {
-    return this.http.post('/api/Orders/PlaceOrder', placeOrder);
+    return this.http.post(this.baseUrl+'/api/Orders/PlaceOrder', placeOrder);
+  }
+  updateOrderStatus(orderId: number) {
+    return this.http.get(this.baseUrl+`/api/Orders/updateOrderStatus/${orderId}`);
+  }
+  sendEmail(email: EmailDto) {
+    return this.http.post(this.baseUrl+'/api/EmailService', email);
   }
 
   getAllOrders() {
-    return this.http.get<Order[]>('/api/Orders');
+    return this.http.get<Order[]>(this.baseUrl+'/api/Orders');
   }
   getMyOrders() {
-    return this.http.get<Order[]>('/api/Orders/GetMyOrders');
+    return this.http.get<Order[]>(this.baseUrl+'/api/Orders/GetMyOrders');
   }
 
   getOrderDetails(orderId: string) {
-    return this.http.get(`/api/Orders/getOrderDetailsByOrderId/${orderId}`);
+    return this.http.get(this.baseUrl+`/api/Orders/getOrderDetailsByOrderId/${orderId}`);
   }
 }

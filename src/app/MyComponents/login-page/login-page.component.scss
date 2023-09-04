@@ -1,27 +1,99 @@
 @import "../../../styles.scss";
-.custom-container {
-  width: fit-content;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  margin: auto;
-  padding: 40px 50px;
-  border: 2px solid black;
-  border-radius: 7px;
-  box-shadow: 2.8px 2.8px 2.2px rgba(0, 0, 0, 0.02),
-    6.7px 6.7px 5.3px rgba(0, 0, 0, 0.028),
-    12.5px 12.5px 10px rgba(0, 0, 0, 0.035),
-    22.3px 22.3px 17.9px rgba(0, 0, 0, 0.042),
-    41.8px 41.8px 33.4px rgba(0, 0, 0, 0.05),
-    100px 100px 80px rgba(0, 0, 0, 0.07);
-  img {
-    height: 55px;
+.login-container 
+{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  position: relative;
+  .blob1 {
+    height: 600px;
+    position: absolute;
+    bottom: -300px;
+    right: -150px;
+    z-index: -10;
   }
-  h3 {
-    text-align: center;
+  .blob2 {
+    height: 800px;
+    position: absolute;
+    top: -160px;
+    left: -300px;
+    z-index: -10;
+    transform: rotateX(30deg);
   }
-  h5 {
-    color: $t-color;
+
+  .typewriter h5 {
+    overflow: hidden;
+    border-right: 0.15em solid $s-color;
+    white-space: nowrap;
+    margin: 0 auto;
+    letter-spacing: 0.15em;
+    animation: typing 3.5s steps(30, end), blink-caret 0.5s step-end infinite;
+  }
+
+  /* The typing effect */
+  @keyframes typing {
+    from {
+      width: 0;
+    }
+    to {
+      width: 100%;
+    }
+  }
+
+  /* The typewriter cursor effect */
+  @keyframes blink-caret {
+    from,
+    to {
+      border-color: transparent;
+    }
+    50% {
+      border-color: $s-color;
+    }
+  }
+  .custom-container {
+    width: fit-content;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin: auto;
+    padding: 40px 50px;
+    border: 2px solid black;
+    border-radius: 7px;
+    background-color: white;
+    box-shadow: 2.8px 2.8px 2.2px rgba(0, 0, 0, 0.02),
+      6.7px 6.7px 5.3px rgba(0, 0, 0, 0.028),
+      12.5px 12.5px 10px rgba(0, 0, 0, 0.035),
+      22.3px 22.3px 17.9px rgba(0, 0, 0, 0.042),
+      41.8px 41.8px 33.4px rgba(0, 0, 0, 0.05),
+      100px 100px 80px rgba(0, 0, 0, 0.07);
+    img {
+      height: 55px;
+    }
+    h3 {
+      text-align: center;
+    }
+    h5 {
+      color: $t-color;
+    }
+  }
+}
+
+@media (max-width: 700px) {
+  .custom-container {
+    width: 80vw;
+  }
+}
+@media (max-width: 450px) {
+  .custom-container {
+    width: 90vw;
+  }
+  .login-bottom {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
 }

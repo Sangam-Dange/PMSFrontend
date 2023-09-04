@@ -12,18 +12,67 @@ import { DrugActionsComponent } from './MyComponents/drug-list/drug-actions/drug
 import { OrderConfirmedPageComponent } from './MyComponents/order-confirmed-page/order-confirmed-page.component';
 import { OrderListComponent } from './MyComponents/order-list/order-list.component';
 import { OrderDetailsComponent } from './MyComponents/order-list/order-details/order-details.component';
+import { UsersListComponent } from './MyComponents/users-list/users-list.component';
+import { UnauthorizedPageComponent } from './MyComponents/unauthorized-page/unauthorized-page.component';
+import { LoginGuard } from './gurads/login.guard';
+import { OrderDetailPdfComponent } from './MyComponents/order-list/order-detail-pdf/order-detail-pdf.component';
+import { AddressPageComponent } from './MyComponents/address-page/address-page.component';
 
 const routes: Routes = [
-  { path: 'orders/orderdetails/:id', component: OrderDetailsComponent },
-  { path: 'orders', component: OrderListComponent },
-  { path: 'orderconfirmed', component: OrderConfirmedPageComponent },
-  { path: 'checkout', component: CheckoutPageComponent },
-  { path: 'editdrug/:id', component: DrugActionsComponent },
-  { path: 'adddrug', component: DrugActionsComponent },
-  { path: 'drugs', component: DrugListComponent },
-  { path: 'addsupplier', component: AddSupplierComponent },
+  {
+    path: 'address',
+    component: AddressPageComponent,
+    canActivate: [LoginGuard],
+  },
+  {
+    path: 'unauthorized',
+    component: UnauthorizedPageComponent,
+    canActivate: [LoginGuard],
+  },
+  { path: 'users', component: UsersListComponent, canActivate: [LoginGuard] },
+  {
+    path: 'orders/orderpdf/:id',
+    component: OrderDetailPdfComponent,
+    canActivate: [LoginGuard],
+  },
+  {
+    path: 'orders/orderdetails/:id',
+    component: OrderDetailsComponent,
+    canActivate: [LoginGuard],
+  },
+  { path: 'orders', component: OrderListComponent, canActivate: [LoginGuard] },
+  {
+    path: 'orderconfirmed',
+    component: OrderConfirmedPageComponent,
+    canActivate: [LoginGuard],
+  },
+  {
+    path: 'checkout',
+    component: CheckoutPageComponent,
+    canActivate: [LoginGuard],
+  },
+  {
+    path: 'editdrug/:id',
+    component: DrugActionsComponent,
+    canActivate: [LoginGuard],
+  },
+  {
+    path: 'adddrug',
+    component: DrugActionsComponent,
+    canActivate: [LoginGuard],
+  },
+  { path: 'drugs', component: DrugListComponent, canActivate: [LoginGuard] },
+  {
+    path: 'addsupplier',
+    component: AddSupplierComponent,
+    canActivate: [LoginGuard],
+  },
   { path: 'editsupplier/:id', component: AddSupplierComponent },
-  { path: 'suppliers', component: SuppliersListComponent },
+  {
+    path: 'suppliers',
+    component: SuppliersListComponent,
+    canActivate: [LoginGuard],
+  },
   { path: 'login', component: LoginPageComponent },
   { path: 'signup', component: SignupPageComponent },
   { path: '', component: LandingPageComponent },

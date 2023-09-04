@@ -1,0 +1,46 @@
+.wrapper {
+    height: 100vh;
+    width: 100vw;
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding: 20px;
+    .header {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      .header-bottom {
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+        align-items: center;
+        .search-drugs {
+          form {
+            display: flex;
+            button {
+              margin-left: 10px;
+            }
+          }
+        }
+      }
+    }
+ 
+  }
+  
+  @media (max-width: 990px) {
+    .header {
+      margin-top: 40px;
+    }
+  }
+  @media (max-width: 480px) {
+    .header {
+      .header-bottom {
+        flex-direction: column;
+        align-items: flex-start !important;
+        .search-drugs {
+          margin-top: 20PX;
+        }
+      }
+    }
+  }
+  

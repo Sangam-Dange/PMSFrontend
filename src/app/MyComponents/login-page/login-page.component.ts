@@ -11,8 +11,8 @@ import { NotifierService } from 'angular-notifier';
   styleUrls: ['./login-page.component.scss'],
 })
 export class LoginPageComponent {
-  title = 'Welcome to PMS';
-  welcomeNote: string = 'welcome to app';
+  title = 'Welcome to PharmaShop';
+
   value: boolean = false;
   visible: boolean = false;
 
@@ -33,16 +33,26 @@ export class LoginPageComponent {
   }
 
   handleLogin() {
+    console.log(this.loginUser);
     if (this.loginUser.email && this.loginUser.password) {
       this.userServices.loginUser(this.loginUser).subscribe({
         next: (res) => {
           this.notifier.notify('success', 'Successfully Logged In');
           this.localstorage.setItem('token', res['token']);
+
           this.userServices.changeUserValue(res['payload']);
-          this.router.navigate(['/']);
+          if (
+            res['payload'].isAdmin !== null ||
+            res['payload'].isSuperAdmin === true
+          ) {
+            this.router.navigate(['/']);
+          } else {
+            this.router.navigate(['/unauthorized']);
+          }
         },
         error: (error) => {
-          this.notifier.notify('error', error.error);
+          this.notifier.notify('error', 'Invalid Credentials');
+          console.log(error);
         },
       });
     }

@@ -16,7 +16,6 @@ import { AddSupplierComponent } from './MyComponents/suppliers-list/add-supplier
 import { FormsModule } from '@angular/forms';
 import { AlertComponent } from './MyComponents/alert/alert.component';
 import { NotifierModule, NotifierOptions } from 'angular-notifier';
-import { UsersService } from './services/users.service';
 import { HeaderComponent } from './MyComponents/header/header.component';
 import { DrugListComponent } from './MyComponents/drug-list/drug-list.component';
 import { DrugCardComponent } from './MyComponents/drug-list/drug-card/drug-card.component';
@@ -29,7 +28,10 @@ import { OrderConfirmedPageComponent } from './MyComponents/order-confirmed-page
 import { OrderListComponent } from './MyComponents/order-list/order-list.component';
 import { OrderDetailsComponent } from './MyComponents/order-list/order-details/order-details.component';
 import { TokenInterceptor } from './services/token-interceptor';
-
+import { UnauthorizedPageComponent } from './MyComponents/unauthorized-page/unauthorized-page.component';
+import { OrderDetailPdfComponent } from './MyComponents/order-list/order-detail-pdf/order-detail-pdf.component';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { AddressPageComponent } from './MyComponents/address-page/address-page.component';
 const customNotifierOptions: NotifierOptions = {
   position: {
     horizontal: {
@@ -64,6 +66,9 @@ const customNotifierOptions: NotifierOptions = {
     OrderConfirmedPageComponent,
     OrderListComponent,
     OrderDetailsComponent,
+    UnauthorizedPageComponent,
+    OrderDetailPdfComponent,
+    AddressPageComponent,
   ],
   imports: [
     BrowserModule,
@@ -73,6 +78,7 @@ const customNotifierOptions: NotifierOptions = {
     FormsModule,
     NotifierModule.withConfig(customNotifierOptions),
     NgbModule,
+    NgxPaginationModule
   ],
   providers: [
     {

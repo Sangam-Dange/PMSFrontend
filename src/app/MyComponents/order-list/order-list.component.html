@@ -1,14 +1,10 @@
 <notifier-container></notifier-container>
+
 <div class="wrapper">
   <div class="header">
     <h2>
       {{ title }}
     </h2>
-    <!-- <button class="btn btn-primary btn-sm" [routerLink]="'/addsupplier'"
-    *ngIf="currentUser?.isAdmin"
-    >
-      Add Supplier
-    </button> -->
   </div>
 
   <div class="container-custom">
@@ -21,7 +17,7 @@
     >
       <thead style="user-select: auto">
         <tr style="user-select: auto">
-          <th scope="col" style="user-select: auto">Order Id</th>
+          <th scope="col" style="user-select: auto;;width: 100px !important">Order Id</th>
           <th
             scope="col"
             style="user-select: auto"
@@ -30,10 +26,13 @@
             Doctor Name
           </th>
           <th scope="col" style="user-select: auto">Order No</th>
-          <th scope="col" style="user-select: auto">Total Items</th>
+          <th scope="col" style="user-select: auto;width: 150px !important">Total Items</th>
           <th scope="col" style="user-select: auto">Total</th>
           <th scope="col" style="user-select: auto">Ordered Date</th>
           <th scope="col" style="user-select: auto">Pickup Date</th>
+          <th scope="col" style="user-select: auto;width: 190px !important" *ngIf="currentUser.isAdmin">
+            Order Status
+          </th>
           <th scope="col" style="user-select: auto">Order Detail</th>
         </tr>
       </thead>
@@ -43,17 +42,17 @@
           class="table-info"
           style="user-select: auto"
         >
-          <td scope="row" style="user-select: auto">{{ order.order_id }}</td>
+          <td scope="row" style="user-select: auto;width: 100px !important">{{ order.order_id }}</td>
           <td
             scope="row"
             style="user-select: auto"
-            *ngIf="currentUser?.isAdmin"
+            *ngIf="currentUser?.isAdmin" 
           >
             {{ "Dr. " + order?.user.name }}
           </td>
-          <td style="user-select: auto">{{ order.order_no }}</td>
-          <td style="user-select: auto">{{ order.totalItems }}</td>
-          <td style="user-select: auto">{{ order.total }}</td>
+          <td style="user-select: auto">{{ order.order_no }}</td> 
+          <td style="user-select: auto;width: 150px !important">{{ order.totalItems }}</td>
+          <td style="user-select: auto">Rs.{{ order.total }}</td>
           <td style="user-select: auto">
             {{ order.order_date | date : "medium" }}
           </td>
@@ -63,6 +62,18 @@
                 ? (order?.pickup_date | date : "medium")
                 : "----"
             }}
+          </td>
+          <td
+            style="user-select: auto; width: 190px !important"
+            *ngIf="currentUser.isAdmin"
+          >
+            <Button
+              class="btn btn-sm"
+              [ngClass]="order?.pickup_date ? 'btn-success' : 'btn-info'"
+              (click)="updateOrderStatus(order?.order_id)"
+            >
+              {{ order?.pickup_date ? "Delivered" : "Mark as Delivered" }}
+            </Button>
           </td>
           <td style="user-select: auto">
             <Button

@@ -12,7 +12,7 @@
     <form
       style="user-select: auto"
       class="needs-validation"
-      #myForm="ngForm"
+      #drugForm="ngForm"
       (ngSubmit)="drugActions()"
       ngNativeValidate
     >
@@ -36,8 +36,20 @@
                 name="drugName"
                 [(ngModel)]="newDrug.drug_name"
                 required
+                #drugName="ngModel"
+                [ngClass]="{
+                  'is-invalid': drugName.invalid && drugName.touched,
+                  'is-valid': drugName.valid
+                }"
               />
-              <div class="valid-feedback">Looks good!</div>
+              <div
+                class="invalid-feedback"
+                *ngIf="(drugName.invalid && drugName.touched) || drugName.dirty"
+              >
+                <small *ngIf="drugName.errors?.required" class="text-danger"
+                  >Drug Name is required</small
+                >
+              </div>
             </div>
             <div class="form-group" style="user-select: auto">
               <label
@@ -56,14 +68,25 @@
                 style="user-select: auto"
                 [(ngModel)]="newDrug.price"
                 [ngModelOptions]="{ standalone: true }"
-                min="0"
+                #drugPrice="ngModel"
+                minlength="1"
+                [ngClass]="{
+                  'is-invalid':
+                    (drugPrice.invalid && drugPrice.touched) ||
+                    newDrug.price == 0,
+                  'is-valid': drugPrice.valid
+                }"
               />
-              <!-- <small
-                id="emailHelp"
-                class="form-text text-muted"
-                style="user-select: auto"
-                >We'll never share your email with anyone else.</small
-              > -->
+              <div
+                class="invalid-feedback"
+                *ngIf="
+                  (drugPrice.invalid && drugPrice.touched) || drugPrice.dirty
+                "
+              >
+                <small *ngIf="drugPrice.errors?.required" class="text-danger"
+                  >Price is required</small
+                >
+              </div>
             </div>
             <div class="form-group" style="user-select: auto">
               <label
@@ -81,7 +104,23 @@
                 style="user-select: auto"
                 [(ngModel)]="newDrug.batch_id"
                 [ngModelOptions]="{ standalone: true }"
+                required
+                #drugBatch="ngModel"
+                [ngClass]="{
+                  'is-invalid': drugBatch.invalid && drugBatch.touched,
+                  'is-valid': drugBatch.valid
+                }"
               />
+              <div
+                class="invalid-feedback"
+                *ngIf="
+                  (drugBatch.invalid && drugBatch.touched) || drugBatch.dirty
+                "
+              >
+                <small *ngIf="drugBatch.errors?.required" class="text-danger"
+                  >Batch Id is required</small
+                >
+              </div>
             </div>
             <div class="form-group" style="user-select: auto">
               <label
@@ -99,8 +138,25 @@
                 style="user-select: auto"
                 [(ngModel)]="newDrug.quantity"
                 [ngModelOptions]="{ standalone: true }"
-                min="0"
+                #drugQuant="ngModel"
+                minlength="1"
+                [ngClass]="{
+                  'is-invalid':
+                    (drugQuant.invalid && drugQuant.touched) ||
+                    newDrug.quantity == 0,
+                  'is-valid': drugQuant.valid
+                }"
               />
+            </div>
+            <div
+              class="invalid-feedback"
+              *ngIf="
+                (drugQuant.invalid && drugQuant.touched) || drugQuant.dirty
+              "
+            >
+              <small *ngIf="drugQuant.errors?.required" class="text-danger"
+                >Quantity is required</small
+              >
             </div>
           </div>
           <div class="drug-right">
@@ -121,6 +177,13 @@
                 style="user-select: auto"
                 [(ngModel)]="newDrug.expiry_date"
                 [ngModelOptions]="{ standalone: true }"
+                #drugDate="ngModel"
+                [ngClass]="{
+                  'is-invalid':
+                    (drugDate.invalid && drugDate.touched) ||
+                    newDrug.expiry_date == null,
+                  'is-valid': drugDate.valid
+                }"
               />
             </div>
 
@@ -129,6 +192,7 @@
                 >Select Supplier</label
               >
               <select
+                required
                 class="form-select"
                 id="supplierList"
                 [(ngModel)]="newDrug.supplierDetailId"
@@ -151,11 +215,13 @@
             type="submit"
             class="btn btn-success px-5 py-2"
             style="user-select: auto"
+            [disabled]="drugForm.invalid"
           >
             {{ id == "" ? "Add" : "Edit" }}
             Drug
           </button>
         </div>
+        
       </fieldset>
     </form>
   </div>

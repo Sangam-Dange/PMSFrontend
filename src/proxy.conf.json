@@ -1,6 +1,6 @@
 {
   "/api/*": {
-    "target": "https://localhost:7051",
+    "target": "https://pms-webapi.azurewebsites.net",
     "secure": false
   }
 }

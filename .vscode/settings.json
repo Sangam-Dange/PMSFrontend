@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/f0de38fb-0293-45e0-91db-366f6a9dce85/resourceGroups/PMS/providers/Microsoft.Web/sites/PMS-WebUI",
+    "appService.deploySubpath": "dist\\pharmacy-management-system"
+}
